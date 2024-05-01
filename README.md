@@ -10,5 +10,4 @@ CuriositeesProject (root project) (pom)
       -- CuriositeesWebParent -module 2 (pom) -- Common dependencies between backend & frontend 
              -- CuriositeesBackEnd -module 2a (jar) 
              -- CuriositeesFrontEnd -module 2b (jar)
-  
 ```
