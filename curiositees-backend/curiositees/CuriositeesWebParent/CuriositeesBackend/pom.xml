@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <artifactId>CuriositeesBackend</artifactId>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <groupId>org.springframework.boot</groupId>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+  </dependencies>
+  <description>Curiositees Admin Project</description>
+  <modelVersion>4.0.0</modelVersion>
+  <name>CuriositeesBackend</name>
+  <parent>
+    <artifactId>CuriositeesWebParent</artifactId>
+    <groupId>com.sunbeaminfo</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+
+  <properties>
+    <java.version>17</java.version>
+  </properties>
+
+</project>
