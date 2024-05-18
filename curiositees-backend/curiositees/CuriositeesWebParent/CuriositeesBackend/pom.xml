@@ -11,11 +11,15 @@
       </plugin>
     </plugins>
   </build>
+
   <dependencies>
+
   </dependencies>
+
   <description>Curiositees Admin Project</description>
   <modelVersion>4.0.0</modelVersion>
   <name>CuriositeesBackend</name>
+
   <parent>
     <artifactId>CuriositeesWebParent</artifactId>
     <groupId>com.sunbeaminfo</groupId>

@@ -24,12 +24,10 @@
       <artifactId>spring-boot-starter-web</artifactId>
       <groupId>org.springframework.boot</groupId>
     </dependency>
-
     <dependency>
       <artifactId>spring-boot-starter-thymeleaf</artifactId>
       <groupId>org.springframework.boot</groupId>
     </dependency>
-
     <dependency>
       <artifactId>spring-boot-devtools</artifactId>
       <groupId>org.springframework.boot</groupId>
@@ -45,6 +43,22 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <groupId>org.springframework.boot</groupId>
       <scope>test</scope>
+    </dependency>
+
+    <!--Bootstrap and JQuery Dependencies-->
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>bootstrap</artifactId>
+      <version>4.3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>jquery</artifactId>
+      <version>3.4.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>webjars-locator-core</artifactId>
     </dependency>
   </dependencies>
   <description>CuriositeesWebParent</description>

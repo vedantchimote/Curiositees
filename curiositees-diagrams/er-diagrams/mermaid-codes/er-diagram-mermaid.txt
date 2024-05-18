@@ -1,0 +1,80 @@
+
+https://mermaid.live/edit#pako:eNqlVdtuozAU_BXk5zQiobnAGxsibaQ2222qfVghrVx8lFgBGxnTXUrz72vu4ZImUiOkiGF8zjDMsVPkcQLIQiAcivcCBy7T1M8mAWVaWtzUwMbRNtuXBtziALRf9vPqu_3coOsAU78PP-Eo-ssFaT85FX-rOJI8AHHessK-1NUmREAUDcg5cAbbOHhVTYcUPQlOYk-eCyqh2_Q4EHmChpJy1n_4TWBGBjQJ6oHmrFebR_uhgXeSe8cHeAO_aVz5hiXsuUhavpXYdZ1lkR19h_MC2f3Ni1fc5-3PlgG3L8dCtsWLnsGXgnDhe_yMMZNUJj2zfgjSTlgOdJfnoKM81Bz7ZX1dxU5iGUfDGcJJAKydoQIabNoF7YDHanUvD2WNjsaypwM-fQOR_KmSn_aG4VZ_B2enysyBhiFl-1ZuSuy2lxvWUtXov9z5xnT6uLv7SOsZtTQXhTySkYs620lJzFOWsQ74IqdIR17Kxx5c5PUMvlK3CkFGC_CxKVyprzWWo5wRX8HnbB9pkl9g5zPb6dwtmE9mV13mxIB9HmcSU9bUKlX3zDmr1XOialw50OHXmfmsaJf0md1ohFQbtfETdYLlQXSRPEAALspYBItjRjspHo4l3yXMQ5YUMYxQHBLld3nmVSAQKrl4LE7E_GAcoRCz35zXFHWLrBT9Q9bEmI2ns-l8bizMpbnQjRFKkLWYjI37iT7R56apG8upeRqh93y9Pp6ZM2OqL9WlLxVnfvoPZo4tiQ
+
+erDiagram
+    Admin {
+        AdminID INT
+        Name VARCHAR
+        Email VARCHAR
+        Password VARCHAR
+    }
+    Customer {
+        CustomerID INT
+        Name VARCHAR
+        Email VARCHAR
+        Address VARCHAR
+        PhoneNumber VARCHAR
+    }
+    Product {
+        ProductID INT
+        Name VARCHAR
+        Description VARCHAR
+        Brand VARCHAR
+        Price DECIMAL
+        StockLevel INT
+    }
+    Category {
+        CategoryID INT
+        Name VARCHAR
+    }
+    Size {
+        SizeID INT
+        Name VARCHAR
+    }
+    Color {
+        ColorID INT
+        Name VARCHAR
+    }
+    Cart {
+        CartID INT
+        CustomerID INT
+        ProductID INT
+        Quantity INT
+    }
+    Order {
+        OrderID INT
+        OrderDate DATE
+        CustomerID INT
+        Status VARCHAR
+    }
+    Payment {
+        PaymentID INT
+        OrderID INT
+        Amount DECIMAL
+        PaymentDate DATE
+    }
+    Delivery_Address {
+        AddressID INT
+        CustomerID INT
+        Address VARCHAR
+    }
+    Shipping {
+        ShippingID INT
+        OrderID INT
+        AddressID INT
+        ShippingDate DATE
+    }
+
+    Admin }|--|{ Product : "posts"
+    Customer }|--|{ Cart : "has"
+    Customer }|--|{ Order : "places"
+    Customer }|--|{ Delivery_Address : "has"
+    Customer }|--|{ Payment : "makes"
+    Product }|--|{ Category : "belongs to"
+    Product }|--|{ Size : "has"
+    Product }|--|{ Color : "has"
+    Cart }|--|{ Product : "contains"
+    Payment }|--|{ Order : "has"
+    Delivery_Address }|--|{ Customer : "has"
+    Shipping }|--|{ Order : "has"
+    Shipping }|--|{ Delivery_Address : "has"

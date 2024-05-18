@@ -11,18 +11,22 @@
       </plugin>
     </plugins>
   </build>
+
   <dependencies>
 
   </dependencies>
+
   <description>CuriositeesFrontend</description>
   <groupId>com.sunbeaminfo</groupId>
   <modelVersion>4.0.0</modelVersion>
   <name>CuriositeesFrontend</name>
+
   <parent>
     <artifactId>CuriositeesWebParent</artifactId>
     <groupId>com.sunbeaminfo</groupId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
+
   <properties>
     <java.version>17</java.version>
   </properties>
