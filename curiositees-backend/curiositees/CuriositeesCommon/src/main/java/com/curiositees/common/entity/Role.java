@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -44,8 +45,35 @@ public class Role {
     this.name = name;
     this.description = description;
   }
+  public Role(Integer id) {
+    this.id = id;
+  }
 
   public Role(String name) {
     this.name = name;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Role role = (Role) o;
+    return Objects.equals(id, role.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(id);
+  }
+
+  @Override
+  public String toString() {
+    return "Role{" +
+        "name='" + name + '\'' +
+        '}';
   }
 }
