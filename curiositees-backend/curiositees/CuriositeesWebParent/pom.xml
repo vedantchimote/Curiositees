@@ -45,10 +45,17 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- Spring Security Dependency-->
+    <dependency>
+      <artifactId>spring-boot-starter-security</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+
+
     <!-- CuriositeesCommon Dependency-->
     <dependency>
-      <groupId>com.sunbeaminfo</groupId>
       <artifactId>CuriositeesCommon</artifactId>
+      <groupId>com.sunbeaminfo</groupId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
 
@@ -60,26 +67,26 @@
 
     <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
     <dependency>
-      <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.22</version>
+      <groupId>mysql</groupId>
       <scope>runtime</scope>
+      <version>8.0.22</version>
     </dependency>
 
     <!--Bootstrap and JQuery Dependencies-->
     <dependency>
-      <groupId>org.webjars</groupId>
       <artifactId>bootstrap</artifactId>
+      <groupId>org.webjars</groupId>
       <version>4.3.1</version>
     </dependency>
     <dependency>
-      <groupId>org.webjars</groupId>
       <artifactId>jquery</artifactId>
+      <groupId>org.webjars</groupId>
       <version>3.4.1</version>
     </dependency>
     <dependency>
-      <groupId>org.webjars</groupId>
       <artifactId>webjars-locator-core</artifactId>
+      <groupId>org.webjars</groupId>
     </dependency>
   </dependencies>
   <description>CuriositeesWebParent</description>
