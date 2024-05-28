@@ -1,0 +1,30 @@
+@startuml
+
+start
+
+:Customer Login;
+if (Login Successful?) then (yes)
+  :View Customer Dashboard;
+  :Browse Products;
+  if (Product Found?) then (yes)
+    :View Product Details;
+    if (Add to Cart?) then (yes)
+      :Add Product to Cart;
+    endif
+  endif
+  :View Cart;
+  if (Proceed to Checkout?) then (yes)
+    :Proceed to Checkout;
+    if (Place Order?) then (yes)
+      :Place Order;
+    endif
+  endif
+  :View Order History;
+  :Logout;
+else (no)
+  :Display Login Error Message;
+endif
+
+stop
+
+@enduml

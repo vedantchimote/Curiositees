@@ -1,0 +1,41 @@
+@startuml
+
+start
+
+if (Login Successful?) then (yes)
+  :View Dashboard;
+  if (Manage Products?) then (yes)
+    :View Product List;
+    :Add New Product;
+  endif
+  if (Manage Categories?) then (yes)
+    :View Category List;
+    :Add New Category;
+  endif
+  if (Manage Orders?) then (yes)
+    :View Order List;
+    :Update Order Status;
+  endif
+  if (Manage Customers?) then (yes)
+    :View Customer List;
+    :Add New Customer;
+  endif
+  if (Manage Reviews?) then (yes)
+    :View Review List;
+    :Approve or Delete Review;
+  endif
+  if (Manage Delivery Addresses?) then (yes)
+    :View Delivery Address List;
+    :Add New Delivery Address;
+  endif
+  if (Manage Admins?) then (yes)
+    :View Admin List;
+    :Add New Admin;
+  endif
+else (no)
+  :Display Login Error Message;
+endif
+
+stop
+
+@enduml

@@ -1,0 +1,62 @@
+graph 
+
+subgraph Admin Dashboard
+    A[Login]
+    B[Dashboard]
+end
+
+subgraph Product Management
+    C[Add Product]
+    D[Edit Product]
+    E[Delete Product]
+end
+
+subgraph Order Management
+    F[View Orders]
+    G[Process Order]
+    H[Cancel Order]
+end
+
+subgraph Customer Management
+    I[View Customers]
+    J[Edit Customer]
+    K[Delete Customer]
+end
+
+subgraph Reporting and Analytics
+    L[Sales Reports]
+    M[Customer Reports]
+end
+
+subgraph Settings
+    N[Site Settings]
+    O[Payment Settings]
+    P[Shipping Settings]
+end
+
+subgraph User Management
+    Q[Add Admin User]
+    R[Edit Admin User]
+    S[Delete Admin User]
+end
+
+A --> B
+B --> C
+B --> F
+B --> I
+B --> L
+B --> N
+B --> Q
+C --> D
+D --> C
+D --> E
+F --> G
+F --> H
+I --> J
+I --> K
+L --> M
+N --> O
+N --> P
+Q --> R
+R --> Q
+R --> S

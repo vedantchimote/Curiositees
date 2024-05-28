@@ -1,0 +1,56 @@
+@startuml
+
+start
+
+if (User Type) then (Admin)
+  :Admin Login;
+  if (Login Successful?) then (yes)
+    :View Admin Dashboard;
+    if (Manage Products?) then (yes)
+      :View Product List;
+      :Add New Product;
+    endif
+    if (Manage Categories?) then (yes)
+      :View Category List;
+      :Add New Category;
+    endif
+    if (Manage Orders?) then (yes)
+      :View Order List;
+      :Update Order Status;
+    endif
+    if (Manage Customers?) then (yes)
+      :View Customer List;
+      :Add New Customer;
+    endif
+    :Logout;
+  else (no)
+    :Display Login Error Message;
+  endif
+else (Customer)
+  :Customer Login;
+  if (Login Successful?) then (yes)
+    :View Customer Dashboard;
+    :Browse Products;
+    if (Product Found?) then (yes)
+      :View Product Details;
+      if (Add to Cart?) then (yes)
+        :Add Product to Cart;
+      endif
+    endif
+    :View Cart;
+    if (Proceed to Checkout?) then (yes)
+      :Proceed to Checkout;
+      if (Place Order?) then (yes)
+        :Place Order;
+      endif
+    endif
+    :View Order History;
+    :Logout;
+  else (no)
+    :Display Login Error Message;
+  endif
+endif
+
+stop
+
+@enduml

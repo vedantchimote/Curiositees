@@ -1,0 +1,148 @@
+@startuml
+
+entity "Admin" as Admin {
+  + AdminID : INT
+  Name : VARCHAR
+  Email : VARCHAR
+  Password : VARCHAR
+}
+
+entity "Customer" as Customer {
+  + CustomerID : INT
+  Name : VARCHAR
+  Email : VARCHAR
+  Address : VARCHAR
+  PhoneNumber : VARCHAR
+}
+
+entity "Product" as Product {
+  + ProductID : INT
+  Name : VARCHAR
+  Description : VARCHAR
+  Brand : VARCHAR
+  Price : DECIMAL
+  StockLevel : INT
+}
+
+entity "Category" as Category {
+  + CategoryID : INT
+  Name : VARCHAR
+}
+
+entity "Size" as Size {
+  + SizeID : INT
+  Name : VARCHAR
+
+}
+
+entity "Color" as Color {
+  + ColorID : INT
+  Name : VARCHAR
+}
+
+entity "Cart" as Cart {
+  + CartID : INT
+  CustomerID : INT
+  ProductID : INT
+  Quantity : INT
+}
+
+entity "Order" as Order {
+  + OrderID : INT
+  OrderDate : DATE
+  CustomerID : INT
+  Status : VARCHAR
+}
+
+entity "Payment" as Payment {
+  + PaymentID : INT
+  OrderID : INT
+  Amount : DECIMAL
+  PaymentDate : DATE
+}
+
+entity "Delivery_Address" as Delivery_Address {
+  + AddressID : INT
+  CustomerID : INT
+  Address : VARCHAR
+}
+
+entity "Shipping" as Shipping {
+  + ShippingID : INT
+  OrderID : INT
+  AddressID : INT
+  ShippingDate : DATE
+}
+
+entity "Review" as Review {
+  + ReviewID : INT
+  ProductID : INT
+  CustomerID : INT
+  Rating : INT
+  Comment : VARCHAR
+}
+
+entity "Brand" as Brand {
+  + BrandID : INT
+  Name : VARCHAR
+}
+
+entity "Vendor" as Vendor
+{
+  + VendorID : INT
+  name: VARCHAR
+  email: VARCHAR
+      phone: VARCHAR
+      address: VARCHAR
+      pan_no: VARCHAR
+      aadhar_no: VARCHAR
+}
+
+'one vendor can sell many products
+Vendor }|--o{ Product : "sells/supplies"
+'one admin can post many products
+Admin }|--o{ Product : "posts"
+'one customer has one cart
+Customer }|--|{ Cart : "has"
+'one customer can place many orders
+Customer }|--o{ Order : "places"
+'one customer can have many delivery addresses
+Customer }|--o{ Delivery_Address : "has"
+'one customer can make many payments
+Customer }|--o{ Payment : "makes"
+'many products can belong to many category
+Product }o--o{ Category : "belongs to"
+'many products can have many sizes
+Product }o--o{ Size : "has"
+'many product can have many colors
+Product }o--o{ Color : "has"
+'one cart can have many products
+Cart }|--o{ Product : "contains"
+'one payment can be made for one order
+Payment }|--|{ Order : "has"
+'one order can have one shipping
+Shipping }|--|{ Order : "has"
+'one shipping can have one address
+Shipping }|--o{ Delivery_Address : "has"
+'one product can have many reviews
+Product }o--|{ Review : "has"
+'many products can belong to one brand
+Product }o--|{ Brand : "belongs to"
+
+@enduml
+
+'Admin posts Product: One Admin can post many Products, and each Product is posted by one Admin. (Admin:1 -- Product:*)
+'Customer has Cart: One Customer can have one Cart, and each Cart belongs to one Customer. (Customer:1 -- Cart:1)
+'Customer places Order: One Customer can place many Orders, and each Order is placed by one Customer. (Customer:1 -- Order:*)
+'Customer has Delivery_Address: One Customer can have many Delivery Addresses, and each Delivery Address belongs to one Customer. (Customer:1 -- Delivery_Address:*)
+'Customer makes Payment: One Customer can make many Payments, and each Payment is made by one Customer. (Customer:1 -- Payment:*)
+'Product belongs to Category: One Product belongs to one Category, and each Category can have many Products. (Category:1 -- Product:*)
+'Product has Size: One Product can have many Sizes, and each Size can be associated with many Products. (Product:* -- Size:*)
+'Product has Color: One Product can have many Colors, and each Color can be associated with many Products. (Product:* -- Color:*)
+'Cart contains Product: One Cart can contain many Products, and each Product can be in many Carts. (Cart:* -- Product:*)
+'Payment has Order: One Payment can be associated with one Order, and each Order can have many Payments. (Payment:1 -- Order:*)
+'Delivery_Address has Customer: One Delivery Address can belong to one Customer, and each Customer can have many Delivery Addresses. (Delivery_Address:1 -- Customer:*)
+'Shipping has Order: One Shipping can be associated with one Order, and each Order can have many Shippings. (Shipping:1 -- Order:*)
+'Shipping has Delivery_Address: One Shipping can have one Delivery Address, and each Delivery Address can be associated with many Shippings. (Shipping:1 -- Delivery_Address:*)
+'Product has Review: One Product can have many Reviews, and each Review belongs to one Product. (Product:* -- Review:1)
+'Product belongs to Brand: One Product belongs to one Brand, and each Brand can have many Products. (Brand:1 -- Product:*)

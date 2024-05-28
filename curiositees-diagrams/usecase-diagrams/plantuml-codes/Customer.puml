@@ -1,0 +1,27 @@
+@startuml
+
+left to right direction
+
+"Customer" as Customer
+"Visitor" as Visitor
+
+rectangle {
+Customer --> (log in)
+Customer --> (view products)
+Customer --> (view articles)
+Customer --> (post reviews)
+Customer --> (view orders)
+Customer --> (manage shopping cart)
+Customer --> (checkout)
+Customer --> (manage addresses)
+Customer --> (vote questions)
+Customer --> (view reviews)
+
+Visitor --> (sign up)
+Visitor --> (view products)
+Visitor --> (view articles)
+Visitor --> (view reviews)
+Visitor --> (view questions)
+}
+
+@enduml

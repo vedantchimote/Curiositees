@@ -1,0 +1,47 @@
+@startuml
+
+left to right direction
+
+"Salesperson" as Salesperson
+"Admin" as Admin
+"Editor" as Editor
+"Shipper" as Shipper
+"Assistant" as Assistant
+
+rectangle {
+Admin --> (manages everything)
+(manages everything) --> (manage users)
+(manages everything) --> (manage settings)
+}
+
+rectangle {
+Editor --> (manager products)
+Editor --> (manage categories)
+Editor --> (manage brands)
+Editor --> (manage articles)
+Editor --> (manage menus)
+}
+
+rectangle {
+Salesperson --> (manage orders)
+Salesperson --> (manage customers)
+Salesperson --> (manage coupons)
+Salesperson --> (manage sales reports)
+Salesperson --> (manage shipping rates)
+Salesperson --> (update product price)
+Salesperson --> (view products)
+}
+
+rectangle {
+Shipper --> (view products)
+Shipper --> (view orders)
+Shipper --> (update order status)
+}
+
+rectangle {
+Assistant --> (manage questions)
+Assistant --> (manage reviews)
+}
+
+
+@enduml

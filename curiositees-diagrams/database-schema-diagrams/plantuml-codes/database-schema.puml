@@ -1,0 +1,245 @@
+@startuml
+
+left to right direction
+
+'orders
+'order_details
+'order_items
+'cart_items
+'categories
+'brands
+'color
+'size
+'questions
+'order_track
+'customers
+'products
+'product_details
+'product_images
+'users
+'reviews
+'shipping_rates
+'articles
+'roles
+'menus
+'payment
+'delivery_address
+'admin
+
+class Customer {
+  +id: int (PK)
+  name: string
+  email: string
+  password: string
+  address: string
+  phone: string
+}
+
+class Product {
+  +id: int (PK)
+  name: string
+  price: decimal
+  description: string
+  category_id: int (FK)
+}
+
+class Category {
+  +id: int (PK)
+  name: string
+}
+
+class Cart {
+  +id: int (PK)
+  customer_id: int (FK)
+  product_id: int (FK)
+  quantity: int
+}
+
+class Order {
+  +id: int (PK)
+  customer_id: int (FK)
+  order_date: datetime
+  total_amount: decimal
+}
+
+class OrderItem {
+  +id: int (PK)
+  order_id: int (FK)
+  product_id: int (FK)
+  quantity: int
+  price: decimal
+}
+
+class Payment {
+  +id: int (PK)
+  order_id: int (FK)
+  payment_date: datetime
+  amount: decimal
+  status: string
+}
+
+class DeliveryAddress {
+  +id: int (PK)
+  customer_id: int (FK)
+  address: string
+}
+
+class Admin {
+  +id: int (PK)
+  name: string
+  email: string
+  password: string
+}
+
+class ProductDetails {
+  +id: int (PK)
+  product_id: int (FK)
+  color: string
+  size: string
+  // Add more relevant fields
+}
+
+class ProductImages {
+  +id: int (PK)
+  product_id: int (FK)
+  image_url: string
+  // Add more relevant fields
+}
+
+class Users {
+  +id: int (PK)
+  username: string
+  email: string
+  // Add more relevant fields
+}
+
+class Reviews {
+  +id: int (PK)
+  product_id: int (FK)
+  user_id: int (FK)
+  rating: int
+  review_text: string
+  // Add more relevant fields
+}
+
+class ShippingRates {
+  +id: int (PK)
+  destination: string
+  rate: decimal
+  // Add more relevant fields
+}
+
+class Articles {
+  +id: int (PK)
+  title: string
+  content: string
+  // Add more relevant fields
+}
+
+class Roles {
+  +id: int (PK)
+  name: string
+  // Add more relevant fields
+}
+
+class Menus {
+  +id: int (PK)
+  name: string
+  url: string
+  // Add more relevant fields
+}
+
+class Color {
+  +id: int (PK)
+  name: string
+}
+
+class Size {
+  +id: int (PK)
+  name: string
+}
+
+class Questions {
+  +id: int (PK)
+  question: string
+  answer: string
+  // Add more relevant fields
+}
+
+class OrderTrack {
+  +id: int (PK)
+  order_id: int (FK)
+  status: string
+  update_date: datetime
+  // Add more relevant fields
+}
+
+class Brands {
+  +id: int (PK)
+  name: string
+  // Add more relevant fields
+}
+
+class Vendor
+{
+ +id: int (PK)
+    name: string
+    email: string
+    phone: string
+    address: string
+    pan_no: string
+    aadhar_no: string
+}
+class WishList
+{
+  +id: int (PK)
+      customer_id: int (FK)
+      product_id: int (FK)
+      quantity: int
+
+}
+Vendor --> Product : "supplies"
+WishList --> Product : "contains"
+
+Product --> Category : "belongs to"
+Product --> ProductDetails : "has"
+Product --> ProductImages : "has"
+Product --> Reviews : "has"
+Product --> Brands : "belongs to"
+Product --> Color : "has"
+Product --> Size : "has"
+
+Customer --> Cart : "has"
+Customer --> Order : "places"
+Customer --> DeliveryAddress : "has"
+Customer --> Payment : "makes"
+
+Cart --> Product : "contains"
+Order --> OrderItem : "has"
+'Order -- Payment : "has"
+Order --> DeliveryAddress : "has"
+Order --> OrderTrack : "has"
+
+Admin --> Category : "manages"
+Admin --> Product : "manages"
+
+'Order -- Customer : "belongs to"
+'OrderItem -- Order : "belongs to"
+OrderItem --> Product : "has"
+Payment --> Order : "belongs to"
+'DeliveryAddress -- Customer : "belongs to"
+
+'ProductDetails -- Product : "belongs to"
+'ProductImages -- Product : "belongs to"
+'Reviews -- Product : "belongs to"
+Reviews --> Users : "posted by"
+ShippingRates --> Order : "applies to"
+
+Articles --> Category : "belongs to"
+Menus --> Roles : "requires"
+Menus --> Articles : "has"
+Menus --> Category : "has"
+
+Questions --> Product : "relates to"
+
+@enduml
