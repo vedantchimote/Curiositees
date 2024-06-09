@@ -97,9 +97,12 @@
 
         <td>
           <a th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
-             href=""></a>
-          <a th:if="${user.enabled == false}" class="fas fa-check-circle fa-2x icon-dark"
-             href=""></a>
+             th:href="@{'/users/' + ${user.id} + '/enabled/false'}"
+             title="Disable user"></a>
+
+          <a th:if="${user.enabled == false}" class="fas fa-circle fa-2x icon-dark"
+             th:href="@{'/users/' + ${user.id} + '/enabled/true'}"
+             title="Enable user"></a>
         </td>
 
         <td>

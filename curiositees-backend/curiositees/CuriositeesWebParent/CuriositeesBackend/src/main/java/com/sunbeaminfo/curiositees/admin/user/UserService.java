@@ -9,6 +9,7 @@ package com.sunbeaminfo.curiositees.admin.user;
 
 import com.curiositees.common.entity.Role;
 import com.curiositees.common.entity.User;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
  **/
 
 @Service
+@Transactional
 public class UserService {
 
   @Autowired
@@ -99,5 +101,9 @@ public class UserService {
       throw new UserNotFoundException("Could not find any user with ID " + id);
     }
     userRepository.deleteById(id);
+  }
+
+  public void updateUserEnabledStatus(Integer id, boolean enabled) {
+    userRepository.updateEnabledStatus(id, enabled);
   }
 }

@@ -66,7 +66,8 @@ public class UserController {
       List<Role> listRoles = userService.listRoles();
 
       model.addAttribute("user", user);
-      model.addAttribute("pageTitle", "Edit User (ID: " + id + " & Email: " + user.getEmail() + ")");
+      model.addAttribute("pageTitle",
+          "Edit User (ID: " + id + " & Email: " + user.getEmail() + ")");
       model.addAttribute("listRoles", listRoles);
 
       return "users_form";
@@ -77,13 +78,26 @@ public class UserController {
   }
 
   @GetMapping("/users/delete/{id}")
-  public String deleteUser(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes) {
+  public String deleteUser(@PathVariable(name = "id") Integer id,
+      RedirectAttributes redirectAttributes) {
     try {
       userService.delete(id);
-      redirectAttributes.addFlashAttribute("message", "The User ID " + id + " has been deleted successfully!");
+      redirectAttributes.addFlashAttribute("message",
+          "The User ID " + id + " has been deleted successfully!");
     } catch (UserNotFoundException e) {
       redirectAttributes.addFlashAttribute("message", e.getMessage());
     }
+    return "redirect:/users";
+  }
+
+  @GetMapping("/users/{id}/enabled/{status}")
+  public String updateUserEnabledStatus(@PathVariable("id") Integer id,
+      @PathVariable("status") boolean enabled,
+      RedirectAttributes redirectAttributes) {
+    userService.updateUserEnabledStatus(id, enabled);
+    String status = enabled ? "enabled" : "disabled";
+    String message = "The User ID " + id + " has been " + status + " successfully!";
+    redirectAttributes.addFlashAttribute("message", message);
     return "redirect:/users";
   }
 }

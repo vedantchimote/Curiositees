@@ -39,12 +39,12 @@ public class UserRepositoryTests {
   @Test
   public void testCreateUserWithOneRole() {
 
-      Role roleAdmin = testEntityManager.find(Role.class,1);
-      User vedantUser = new User("vedantchimote@gmail.com", "123456", "Vedant", "Chimote");
-      vedantUser.addRole(roleAdmin);
+    Role roleAdmin = testEntityManager.find(Role.class, 1);
+    User vedantUser = new User("vedantchimote@gmail.com", "123456", "Vedant", "Chimote");
+    vedantUser.addRole(roleAdmin);
 
-      User savedUser = userRepository.save(vedantUser);
-      assertThat(savedUser.getId()).isGreaterThan(0);
+    User savedUser = userRepository.save(vedantUser);
+    assertThat(savedUser.getId()).isGreaterThan(0);
   }
 
   @Test
@@ -62,22 +62,20 @@ public class UserRepositoryTests {
   }
 
   @Test
-  public void testListAllUsers()
-  {
+  public void testListAllUsers() {
     Iterable<User> listUsers = userRepository.findAll();
     listUsers.forEach((user) -> System.out.println(user));
   }
 
   @Test
-  public void testGetUserById(){
+  public void testGetUserById() {
     User user = userRepository.findById(1).get();
     System.out.println(user);
     assertThat(user).isNotNull();
   }
 
   @Test
-  public void testUpdateUserDetails()
-  {
+  public void testUpdateUserDetails() {
     User user = userRepository.findById(1).get();
     user.setEnabled(true);
     user.setEmail("vedantchimote3301@gmail.com");
@@ -85,8 +83,7 @@ public class UserRepositoryTests {
   }
 
   @Test
-  public void testUpdateUserRoles()
-  {
+  public void testUpdateUserRoles() {
     User userKaran = userRepository.findById(2).get();
     Role roleEditor = new Role(3);
     Role roleSalespersion = new Role(2);
@@ -98,26 +95,35 @@ public class UserRepositoryTests {
   }
 
   @Test
-  public void testDeleteUser()
-  {
+  public void testDeleteUser() {
     Integer userId = 2;
     userRepository.deleteById(userId);
   }
 
   @Test
-  public void testGetUserByEmail()
-  {
+  public void testGetUserByEmail() {
     String email = "vedantchimote3301@gmail.com";
     User user = userRepository.getUserByEmail(email);
     assertThat(user).isNotNull();
   }
 
   @Test
-  public void testCountById()
-  {
+  public void testCountById() {
     Integer id = 16;
     Long countById = userRepository.countById(id);
 
     assertThat(countById).isNotNull().isGreaterThan(0);
+  }
+
+  @Test
+  public void testDisableUser() {
+    Integer id = 3;
+    userRepository.updateEnabledStatus(id, false);
+  }
+
+  @Test
+  public void testEnableUser() {
+    Integer id = 3;
+    userRepository.updateEnabledStatus(id, true);
   }
 }
