@@ -16,6 +16,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.Data;
@@ -83,5 +84,17 @@ public class User {
         ", lastName='" + lastName + '\'' +
         ", roles=" + roles +
         '}';
+  }
+  @Transient
+  public String getPhotosImagePath() {
+    if (id == null || photos == null) {
+      return "/images/default-user.png";
+    }
+
+    //Before changing the run configuration (#Ignore)
+    //used postman to test the correct url
+    //return "/images/user-photos/" + this.id + "/" + this.photos;
+
+    return "/user-photos/" + this.id + "/" + this.photos;
   }
 }
