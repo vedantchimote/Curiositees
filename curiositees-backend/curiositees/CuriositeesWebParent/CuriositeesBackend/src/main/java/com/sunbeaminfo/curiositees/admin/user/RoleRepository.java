@@ -17,7 +17,9 @@ import org.springframework.stereotype.Repository;
  * @created : 19-05-2024, Sunday
  **/
 
+// This annotation marks the interface as a repository component
 @Repository
+// This interface provides methods to perform CRUD operations on the Role entity
 public interface RoleRepository extends CrudRepository<Role, Integer> {
 
 }

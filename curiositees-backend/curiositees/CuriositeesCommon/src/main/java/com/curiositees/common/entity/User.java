@@ -30,19 +30,28 @@ import lombok.Setter;
  * @created : 25-05-2024, Saturday
  **/
 
+// This annotation marks the class as an entity class
 @Entity
+// This annotation is used to provide the table name in the database
 @Table(name = "users")
+// This annotation is used to generate the getters and setters, toString, equals and hashCode methods
 @Data
+// This annotation is used to generate the no argument constructor
 @NoArgsConstructor
+// This annotation is used to generate the getters and setters
 @Getter
 @Setter
 public class User {
 
+  // This annotation is used to generate the primary key
   @Id
+  // This annotation is used to generate the primary key value automatically
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  // This annotation is used to provide the column name in the database
   @Column(name = "id")
   private Integer id;
 
+  // This annotation is used to provide the column name in the database and set the length of the column
   @Column(length = 128, nullable = false, unique = true)
   private String email;
 
@@ -60,7 +69,9 @@ public class User {
 
   private boolean enabled;
 
+  // This annotation is used to create a many-to-many relationship between the User and Role entities
   @ManyToMany
+  // This annotation is used to create a join table between the User and Role entities
   @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles = new HashSet<>();
 
@@ -85,8 +96,12 @@ public class User {
         ", roles=" + roles +
         '}';
   }
+
+  // This annotation is used to ignore the method from the database schema generation process
   @Transient
+  /*  This method is used to return the path of the user photos based on the user id and photos name */
   public String getPhotosImagePath() {
+    // If the id or photos is null, return the default user image path
     if (id == null || photos == null) {
       return "/images/default-user.png";
     }

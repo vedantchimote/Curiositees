@@ -9,10 +9,18 @@ package com.sunbeaminfo.curiositees.admin;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+/**
+ * This class is used to handle the requests for the home page
+ */
 @Controller
 public class MainController {
 
+  /**
+   * This method is used to return the view for the home page
+   * @return the view for the home page
+   */
   @GetMapping("")
+
   public String viewHomePage() {
     return "index";
   }

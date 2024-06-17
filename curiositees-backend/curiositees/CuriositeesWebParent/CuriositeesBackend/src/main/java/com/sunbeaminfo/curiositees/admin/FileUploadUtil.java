@@ -21,22 +21,28 @@ import org.springframework.web.multipart.MultipartFile;
  * @created : 10-06-2024, Monday
  **/
 
+// This class provides utility methods for file upload
 public class FileUploadUtil {
 
+  // This method saves a file to a specified directory
+  // It takes the directory path, file name, and the file to be saved as input
   public static void saveFile(String uploadDir, String fileName, MultipartFile multipartFile)
       throws IOException {
 
-    //Before changing the run configuration (#Ignore)
+    //Before changing the run configuration (#Experimental #Ignore)
 //    Path uploadPath = Paths.get(
 //        "curiositees-backend//curiositees//CuriositeesWebParent//CuriositeesBackend//src//main//resources//static//images//",
 //        uploadDir);
 
+    // Define the path to upload the file
     Path uploadPath = Paths.get(uploadDir);
 
+    // If the directory does not exist, create it
     if (!Files.exists(uploadPath)) {
       Files.createDirectories(uploadPath);
     }
 
+    // Try to save the file
     try (InputStream inputStream = multipartFile.getInputStream()) {
       Path filePath = uploadPath.resolve(fileName);
       Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
@@ -45,9 +51,12 @@ public class FileUploadUtil {
     }
   }
 
+  // This method cleans a directory by deleting all its files
   public static void cleanDir(String dir) {
+    // Define the path to the directory to be cleaned
     Path dirPath = Paths.get(dir);
 
+    // Try to list all files in the directory and delete them
     try {
       Files.list(dirPath).forEach(file -> {
         if (!Files.isDirectory(file)) {
