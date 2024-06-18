@@ -19,17 +19,20 @@ import org.springframework.security.web.SecurityFilterChain;
  * @mailto : vedantc.code@gmail.com
  * @created : 28-05-2024, Tuesday
  **/
-
+// This class is used to configure the security for the application using Spring Security 6
 @Configuration
 public class WebSecurityConfig {
 
   //update in spring security 6, no need to extend WebSecurityConfigurerAdapter
 
+  // This method is used to create a PasswordEncoder bean for the application using BCryptPasswordEncoder class
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
 
+  // This method is used to configure the HttpSecurity for the application
+  // using Spring Security 6 and return the SecurityFilterChain object
   @Bean
   SecurityFilterChain configureHttpSecurity(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll());

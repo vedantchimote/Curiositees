@@ -31,6 +31,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
   // This annotation is used to specify the query to be executed
   @Query("Select u from User u where u.email = :email")
+  // This annotation is used to specify the query parameter
   public User getUserByEmail(@Param("email") String email);
 
   /* This method is used to count the number of users with the specified id in the database

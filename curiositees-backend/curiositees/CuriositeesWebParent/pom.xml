@@ -88,6 +88,15 @@
       <artifactId>webjars-locator-core</artifactId>
       <groupId>org.webjars</groupId>
     </dependency>
+
+    <!-- SwaggerUI -->
+    <dependency>
+      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+      <groupId>org.springdoc</groupId>
+      <version>2.0.2</version>
+      <!--    http://localhost:8090/CuriositeesAdmin/swagger-ui/index.html#/-->
+    </dependency>
+
   </dependencies>
   <description>CuriositeesWebParent</description>
   <groupId>com.sunbeaminfo</groupId>
