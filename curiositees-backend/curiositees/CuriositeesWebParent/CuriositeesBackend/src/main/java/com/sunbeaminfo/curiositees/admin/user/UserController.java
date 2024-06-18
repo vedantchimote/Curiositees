@@ -13,6 +13,7 @@ import com.sunbeaminfo.curiositees.admin.FileUploadUtil;
 import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -39,10 +40,38 @@ public class UserController {
   /* This method is used to list all users and display them on the users page
     using the users.html template and the list of users */
   @GetMapping("/users")
-  public String listAll(Model model) {
-    List<User> listUsers = userService.listAll();
-    // Add the list of users to the model
+  public String listFirstPage(Model model) {
+
+    return listByPage(model, 1);
+
+//    List<User> listUsers = userService.listAll();
+//    // Add the list of users to the model
+//    model.addAttribute("listUsers", listUsers);
+//    return "users";
+  }
+
+  @GetMapping("/users/page/{pageNum}")
+  public String listByPage(Model model, @PathVariable(name = "pageNum") int pageNum) {
+
+    Page<User> page = userService.listByPage(pageNum);
+    List<User> listUsers = page.getContent();
+
+//    System.out.println("Pagenum" + pageNum);
+//    System.out.println("Total elements = " + page.getTotalElements());
+//    System.out.println("Total pages = " + page.getTotalPages());
+
+    long startCount = (pageNum - 1) * UserService.USERS_PER_PAGE + 1;
+    long endCount = startCount + UserService.USERS_PER_PAGE - 1;
+    if (endCount > page.getTotalElements()) {
+      endCount = page.getTotalElements();
+    }
+    model.addAttribute("currentPage", pageNum);
+    model.addAttribute("totalPages", page.getTotalPages());
+    model.addAttribute("startCount", startCount);
+    model.addAttribute("endCount", endCount);
+    model.addAttribute("totalItems", page.getTotalElements());
     model.addAttribute("listUsers", listUsers);
+
     return "users";
   }
 

@@ -11,6 +11,7 @@ import com.curiositees.common.entity.User;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -23,7 +24,8 @@ import org.springframework.stereotype.Repository;
 // This annotation marks the interface as a repository component
 @Repository
 // This interface provides methods to perform CRUD operations on the User entity
-public interface UserRepository extends CrudRepository<User, Integer> {
+public interface UserRepository extends CrudRepository<User, Integer>,
+    PagingAndSortingRepository<User, Integer> {
 
   /* This method is used to find a user by email address using the email parameter
    as the query parameter value and return the user object if found in the database
