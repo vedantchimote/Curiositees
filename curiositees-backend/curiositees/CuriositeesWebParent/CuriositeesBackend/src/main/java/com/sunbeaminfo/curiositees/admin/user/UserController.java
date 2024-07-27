@@ -208,6 +208,7 @@ public class UserController {
     return "redirect:/users";
   }
 
+  //Used to export the list of users to a CSV file and download it
   @GetMapping("/users/export/csv")
   public void exportToCSV(HttpServletResponse response) throws IOException {
     List<User> listUsers = userService.listAll();
