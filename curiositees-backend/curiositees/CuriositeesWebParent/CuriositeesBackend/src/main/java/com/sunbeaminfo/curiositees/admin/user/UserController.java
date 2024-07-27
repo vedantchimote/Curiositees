@@ -7,9 +7,11 @@
 
 package com.sunbeaminfo.curiositees.admin.user;
 
+
 import com.curiositees.common.entity.Role;
 import com.curiositees.common.entity.User;
 import com.sunbeaminfo.curiositees.admin.FileUploadUtil;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,12 +40,17 @@ public class UserController {
   @Autowired
   private UserService userService;
 
+  private static String getString(User user) {
+    String firstPartOfEmail = user.getEmail().split("@")[0];
+    return "redirect:/users/page/1?sortField=id&sortDir=asc&keyword=" + firstPartOfEmail;
+  }
+
   /* This method is used to list all users and display them on the users page
     using the users.html template and the list of users */
   @GetMapping("/users")
   public String listFirstPage(Model model) {
 
-    return listByPage( model, 1,"firstName", "asc", null);
+    return listByPage(model, 1, "firstName", "asc", null);
 
 //    List<User> listUsers = userService.listAll();
 //    // Add the list of users to the model
@@ -53,10 +60,8 @@ public class UserController {
 
   @GetMapping("/users/page/{pageNum}")
   public String listByPage(Model model, @PathVariable(name = "pageNum") int pageNum,
-      @Param("sortField") String sortField,
-      @Param("sortDir") String sortDir,
-      @Param("keyword") String keyword
-      ) {
+      @Param("sortField") String sortField, @Param("sortDir") String sortDir,
+      @Param("keyword") String keyword) {
 
     System.out.println("Sort Field: " + sortField);
     System.out.println("Sort Dir: " + sortDir);
@@ -141,11 +146,6 @@ public class UserController {
     return getString(user);
   }
 
-  private static String getString(User user) {
-    String firstPartOfEmail = user.getEmail().split("@")[0];
-    return "redirect:/users/page/1?sortField=id&sortDir=asc&keyword=" + firstPartOfEmail;
-  }
-
   /*  This method is used to edit a user using the users_form.html template and the User object
     with the specified ID and the list of roles available in the system*/
   @GetMapping("/users/edit/{id}")
@@ -198,8 +198,7 @@ public class UserController {
   */
   @GetMapping("/users/{id}/enabled/{status}")
   public String updateUserEnabledStatus(@PathVariable("id") Integer id,
-      @PathVariable("status") boolean enabled,
-      RedirectAttributes redirectAttributes) {
+      @PathVariable("status") boolean enabled, RedirectAttributes redirectAttributes) {
     // Update the user's enabled status with the specified ID and status
     userService.updateUserEnabledStatus(id, enabled);
     String status = enabled ? "enabled" : "disabled";
@@ -208,4 +207,12 @@ public class UserController {
     // Redirect to the users page with the list of users and the list of roles available in the system and return the users.html template
     return "redirect:/users";
   }
+
+  @GetMapping("/users/export/csv")
+  public void exportToCSV(HttpServletResponse response) throws IOException {
+    List<User> listUsers = userService.listAll();
+    UserCsvExporter exporter = new UserCsvExporter();
+    exporter.export(listUsers, response);
+  }
+
 }
