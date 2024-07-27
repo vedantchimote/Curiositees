@@ -138,7 +138,12 @@ public class UserController {
 
     // Add a success message and redirect to the users page
     redirectAttributes.addFlashAttribute("message", "The User has been saved successfully!");
-    return "redirect:/users";
+    return getString(user);
+  }
+
+  private static String getString(User user) {
+    String firstPartOfEmail = user.getEmail().split("@")[0];
+    return "redirect:/users/page/1?sortField=id&sortDir=asc&keyword=" + firstPartOfEmail;
   }
 
   /*  This method is used to edit a user using the users_form.html template and the User object
