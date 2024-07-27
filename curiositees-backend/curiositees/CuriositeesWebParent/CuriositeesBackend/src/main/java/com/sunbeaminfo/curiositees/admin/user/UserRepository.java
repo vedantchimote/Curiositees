@@ -8,6 +8,8 @@
 package com.sunbeaminfo.curiositees.admin.user;
 
 import com.curiositees.common.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -39,6 +41,10 @@ public interface UserRepository extends CrudRepository<User, Integer>,
   /* This method is used to count the number of users with the specified id in the database
      or 0 if not found */
   public Long countById(Integer id);
+
+  @Query("SELECT u FROM User u WHERE CONCAT(u.id, ' ', u.email, ' ', u.firstName, ' ',"
+      + " u.lastName) LIKE %?1%")
+  public Page<User> findAll(String keyword, Pageable pageable);
 
   /* This method is used to update the enabled status of a user in the database using the id parameter
   // as the query parameter value and the enabled parameter as the new value for the enabled status */
