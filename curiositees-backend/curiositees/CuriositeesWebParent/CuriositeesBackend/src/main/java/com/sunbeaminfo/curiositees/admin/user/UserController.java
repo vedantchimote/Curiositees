@@ -231,4 +231,5 @@ public class UserController {
     UserPdfExporter exporter = new UserPdfExporter();
     exporter.export(listUsers, response);
   }
+
 }

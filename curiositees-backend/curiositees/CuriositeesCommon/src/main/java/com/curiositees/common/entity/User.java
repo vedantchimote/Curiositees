@@ -9,6 +9,7 @@ package com.curiositees.common.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -70,9 +71,11 @@ public class User {
   private boolean enabled;
 
   // This annotation is used to create a many-to-many relationship between the User and Role entities
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   // This annotation is used to create a join table between the User and Role entities
-  @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+  @JoinTable(name = "users_roles",
+      joinColumns = @JoinColumn(name = "user_id"),
+      inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles = new HashSet<>();
 
   public User(String email, String password, String firstName, String lastName) {

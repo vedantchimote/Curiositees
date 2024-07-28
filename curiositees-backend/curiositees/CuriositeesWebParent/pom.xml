@@ -97,6 +97,11 @@
       <!--    http://localhost:8090/CuriositeesAdmin/swagger-ui/index.html#/-->
     </dependency>
 
+    <dependency>
+      <groupId>org.thymeleaf.extras</groupId>
+      <artifactId>thymeleaf-extras-springsecurity6</artifactId>
+    </dependency>
+
   </dependencies>
   <description>CuriositeesWebParent</description>
   <groupId>com.sunbeaminfo</groupId>
