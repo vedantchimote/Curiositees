@@ -1,4 +1,5 @@
 <img src="https://wakatime.com/badge/user/7468211e-4fb5-451d-95a8-2d5d4f898776/project/3478e0ab-5e08-4854-b4eb-bd04e8ccb451.svg" />
+<img src="https://raw.githubusercontent.com/vedantchimote/Curiositees/main/curiositees-resources/curiositees-logo/Curiositees.gif" />
 
 Curiositees is an e-commerce project developed using Spring Boot and ReactJS. It is an e-commerce application that allows users to browse and purchase fashion products online.
 
