@@ -1,23 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta charset="UTF-8" content="text/html" http-equiv="Content-Type">
+  <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0" name="viewport">
   <title>Curiositees Admin Control Panel</title>
 
-  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-  <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-  <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{/fontawesome/all.css}" type="text/css"/>
+  <link rel="stylesheet" th:href="@{/style.css}" type="text/css"/>
+  <script th:src="@{/webjars/jquery/jquery.min.js}" type="text/javascript"></script>
+  <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" type="text/javascript"></script>
 
 </head>
 <body>
 <div class="container-fluid">
   <div>
+    <form method="post" name="logoutForm" th:action="@{/logout}" th:hidden="true">
+      <input type="submit"/>
+    </form>
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
       <a class="navbar-brand" th:href="@{/}">
-        <img th:src="@{/images/CuriositeesAdminSmall.png}" alt="Curiositees Admin Logo">
+        <img alt="Curiositees Admin Logo" th:src="@{/images/CuriositeesAdminSmall.png}">
       </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
+      <button class="navbar-toggler" data-target="#topNavbar" data-toggle="collapse" type="button">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="topNavbar">
@@ -55,16 +61,36 @@
           <li class="nav-item">
             <a class="nav-link" th:href="@{/settings}">Settings</a>
           </li>
+          <li>
+            <span class="fas fa-user fa-2x icon-silver ml-3"></span>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown"
+               sec:authentication="principal.fullname"></a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="" id="logoutLink">Logout</a>
+            </div>
+          </li>
         </ul>
       </div>
     </nav>
   </div>
-<div>
-  <h1>Welcome to Curiositees Admin Control Panel</h1>
+  <div>
+    <h1>Welcome to Curiositees Admin Control Panel</h1>
+  </div>
+  <div class="text-center">
+    <p>Curiositees Control Panel - Copyright &copy; Curiositees</p>
+  </div>
 </div>
-<div class="text-center">
-  <p>Curiositees Control Panel - Copyright &copy; Curiositees</p>
-</div>
-</div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#logoutLink").on("click", function (e) {
+      e.preventDefault();
+      document.logoutForm.submit();
+    });
+  });
+
+</script>
 </body>
 </html>

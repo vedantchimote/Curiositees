@@ -23,7 +23,6 @@ import org.springframework.stereotype.Repository;
  * @created : 25-05-2024, Saturday
  **/
 
-// This annotation marks the interface as a repository component
 @Repository
 // This interface provides methods to perform CRUD operations on the User entity
 public interface UserRepository extends CrudRepository<User, Integer>,

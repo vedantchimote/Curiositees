@@ -72,4 +72,8 @@ public class CuriositeesUserDetails implements UserDetails {
   public boolean isEnabled() {
     return user.isEnabled();
   }
+
+  public String getFullname() {
+    return this.user.getFirstName() + " " + this.user.getLastName();
+  }
 }
