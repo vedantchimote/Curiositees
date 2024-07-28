@@ -1,0 +1,167 @@
+@startuml
+left to right direction
+class com.sunbeaminfo.curiositees.admin.security.WebSecurityConfig {
+~ UserDetailsService userDetailsService()
++ PasswordEncoder passwordEncoder()
+~ DaoAuthenticationProvider authenticationProvider()
+~ SecurityFilterChain configureHttpSecurity(HttpSecurity)
+~ WebSecurityCustomizer configureWebSecurity()
+}
+
+class com.sunbeaminfo.curiositees.admin.MainController {
++ String viewHomePage()
++ String viewLoginPage()
+}
+
+class com.sunbeaminfo.curiositees.admin.user.UserController {
+- UserService userService
+- {static} String getString(User)
++ String listFirstPage(Model)
++ String listByPage(Model,int,String,String,String)
++ String newUser(Model)
++ String saveUser(User,RedirectAttributes,MultipartFile)
++ String editUser(Integer,Model,RedirectAttributes)
++ String deleteUser(Integer,RedirectAttributes)
++ String updateUserEnabledStatus(Integer,boolean,RedirectAttributes)
++ void exportToCSV(HttpServletResponse)
++ void exportToExcel(HttpServletResponse)
++ void exportToPDF(HttpServletResponse)
+}
+
+
+interface com.sunbeaminfo.curiositees.admin.user.RoleRepository {
+}
+class com.sunbeaminfo.curiositees.admin.MvcConfig {
++ void addResourceHandlers(ResourceHandlerRegistry)
+}
+
+class com.sunbeaminfo.curiositees.admin.security.CuriositeesUserDetailsService {
+- UserRepository userRepo
++ UserDetails loadUserByUsername(String)
+}
+
+
+class com.sunbeaminfo.curiositees.admin.user.UserCsvExporter {
++ void export(List<User>,HttpServletResponse)
+}
+
+class com.sunbeaminfo.curiositees.admin.FileUploadUtil {
++ {static} void saveFile(String,String,MultipartFile)
++ {static} void cleanDir(String)
+}
+
+class com.sunbeaminfo.curiositees.admin.user.UserService {
++ {static} int USERS_PER_PAGE
+- UserRepository userRepository
+- RoleRepository roleRepository
+- PasswordEncoder passwordEncoder
++ List<User> listAll()
++ Page<User> listByPage(int,String,String,String)
++ List<Role> listRoles()
++ User save(User)
+- void encodePassword(User)
++ boolean isEmailUnique(Integer,String)
++ User get(Integer)
++ void delete(Integer)
++ void updateUserEnabledStatus(Integer,boolean)
+}
+
+
+class com.sunbeaminfo.curiositees.admin.user.UserPdfExporter {
++ void export(List<User>,HttpServletResponse)
+- void writeTableData(PdfPTable,List<User>)
+- void writeTableHeader(PdfPTable)
+}
+
+class com.sunbeaminfo.curiositees.admin.user.PasswordEncoderTest {
++ void testEncodePassword()
+}
+
+class com.sunbeaminfo.curiositees.admin.user.AbstractExporter {
++ void setResponseHeader(HttpServletResponse,String,String)
+}
+
+class com.sunbeaminfo.curiositees.admin.user.UserExcelExporter {
+- XSSFWorkbook workbook
+- XSSFSheet sheet
+- void writeHeaderLine()
+- void createCell(XSSFRow,int,Object,CellStyle)
++ void export(List<User>,HttpServletResponse)
+- void writeDataLines(List<User>)
+}
+
+
+class com.sunbeaminfo.curiositees.admin.user.RoleRepositoryTests {
+- RoleRepository roleRepository
++ void testCreateFirstRole()
++ void testCreateRestRoles()
+}
+
+
+class com.sunbeaminfo.curiositees.admin.security.CuriositeesUserDetails {
+- User user
++ Collection<? extends GrantedAuthority> getAuthorities()
++ String getPassword()
++ String getUsername()
++ boolean isAccountNonExpired()
++ boolean isAccountNonLocked()
++ boolean isCredentialsNonExpired()
++ boolean isEnabled()
+}
+
+
+class com.sunbeaminfo.curiositees.admin.CuriositeesBackendApplicationTests {
+~ void contextLoads()
+}
+
+class com.sunbeaminfo.curiositees.admin.user.UserNotFoundException {
+}
+class com.sunbeaminfo.curiositees.admin.CuriositeesBackendApplication {
++ {static} void main(String[])
+}
+
+class com.sunbeaminfo.curiositees.admin.user.UserRestController {
+- UserService userService
++ String checkDuplicateEmail(Integer,String)
+}
+
+
+interface com.sunbeaminfo.curiositees.admin.user.UserRepository {
++ User getUserByEmail(String)
++ Long countById(Integer)
++ Page<User> findAll(String,Pageable)
++ void updateEnabledStatus(Integer,boolean)
+}
+
+class com.sunbeaminfo.curiositees.admin.user.UserRepositoryTests {
+- UserRepository userRepository
+- TestEntityManager testEntityManager
++ void testCreateUserWithOneRole()
++ void testCreateUserWithTwoRoles()
++ void testListAllUsers()
++ void testGetUserById()
++ void testUpdateUserDetails()
++ void testUpdateUserRoles()
++ void testDeleteUser()
++ void testGetUserByEmail()
++ void testCountById()
++ void testDisableUser()
++ void testEnableUser()
++ void testListFirstPage()
++ void testSearchUsers()
+}
+
+
+
+
+org.springframework.data.repository.CrudRepository <|-- com.sunbeaminfo.curiositees.admin.user.RoleRepository
+org.springframework.web.servlet.config.annotation.WebMvcConfigurer <|.. com.sunbeaminfo.curiositees.admin.MvcConfig
+org.springframework.security.core.userdetails.UserDetailsService <|.. com.sunbeaminfo.curiositees.admin.security.CuriositeesUserDetailsService
+com.sunbeaminfo.curiositees.admin.user.AbstractExporter <|-- com.sunbeaminfo.curiositees.admin.user.UserCsvExporter
+com.sunbeaminfo.curiositees.admin.user.AbstractExporter <|-- com.sunbeaminfo.curiositees.admin.user.UserPdfExporter
+com.sunbeaminfo.curiositees.admin.user.AbstractExporter <|-- com.sunbeaminfo.curiositees.admin.user.UserExcelExporter
+org.springframework.security.core.userdetails.UserDetails <|.. com.sunbeaminfo.curiositees.admin.security.CuriositeesUserDetails
+com.sunbeaminfo.curiositees.admin.user.Exception <|-- com.sunbeaminfo.curiositees.admin.user.UserNotFoundException
+org.springframework.data.repository.CrudRepository <|-- com.sunbeaminfo.curiositees.admin.user.UserRepository
+org.springframework.data.repository.PagingAndSortingRepository <|-- com.sunbeaminfo.curiositees.admin.user.UserRepository
+@enduml

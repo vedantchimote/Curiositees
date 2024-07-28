@@ -1,0 +1,28 @@
+@startuml
+class com.curiositees.common.entity.Role {
+- Integer id
+- String name
+- String description
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+class com.curiositees.common.entity.User {
+- Integer id
+- String email
+- String password
+- String firstName
+- String lastName
+- String photos
+- boolean enabled
+- Set<Role> roles
++ void addRole(Role)
++ String toString()
++ String getPhotosImagePath()
++ String getFullName()
+}
+
+
+@enduml
