@@ -5,7 +5,7 @@
  * @Time : 06:20 pm
  **/
 
-package com.sunbeaminfo.curiositees.admin.user;
+package com.sunbeaminfo.curiositees.admin.user.export;
 
 import com.curiositees.common.entity.User;
 import com.lowagie.text.Document;
@@ -17,6 +17,7 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
+import com.sunbeaminfo.curiositees.admin.user.AbstractExporter;
 import jakarta.servlet.http.HttpServletResponse;
 import java.awt.Color;
 import java.io.IOException;
