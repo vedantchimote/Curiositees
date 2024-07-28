@@ -24,9 +24,12 @@ The project is causing stress 😓, oh wait we mean progress 🚀
 <h3 align="center">
 The blood, sweat, and tears 😅💪🏽💦 that has been put into this project up until now
 </h3>
-
 <br>
 
 * #### CuriositeesCommon Module
 
+<img src="https://raw.githubusercontent.com/vedantchimote/Curiositees/main/curiositees-resources/ProjectProgressClassDiagrams/CuriositeesCommon.png" />
+
 * #### CuriositeesBackend Module
+
+<img src="https://raw.githubusercontent.com/vedantchimote/Curiositees/main/curiositees-resources/ProjectProgressClassDiagrams/CuriositeesBackend.png" />
