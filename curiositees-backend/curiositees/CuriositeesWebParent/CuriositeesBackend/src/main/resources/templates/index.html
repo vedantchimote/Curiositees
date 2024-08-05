@@ -1,12 +1,15 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html
-    xmlns:th="http://www.thymeleaf.org">
+    xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments :: page_head('Home - Curiositees Admin')"/>
 <body>
 <div class="container-fluid">
   <div th:replace="navigation :: menu"></div>
   <div>
     <h1>Welcome to Curiositees Admin Control Panel</h1>
+    <a th:href="@{/account}"
+       sec:authentication="principal.fullname"></a>
+    <span sec:authentication="principal.authorities"></span>
   </div>
   <div th:replace="fragments :: footer"></div>
 </div>

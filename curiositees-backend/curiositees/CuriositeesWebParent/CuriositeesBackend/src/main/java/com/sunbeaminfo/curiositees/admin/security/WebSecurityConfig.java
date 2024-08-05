@@ -65,8 +65,30 @@ public class WebSecurityConfig {
     http.authenticationProvider(authenticationProvider());
 
     http.authorizeHttpRequests(auth -> auth
+            .requestMatchers("/users/**").hasAuthority("Admin")
+            .requestMatchers("/categories/**").hasAnyAuthority("Admin", "Editor")
+            .requestMatchers("/products/**").hasAnyAuthority("Admin", "Salesperson", "Editor", "Shipper")
+            .requestMatchers("/brands/**").hasAnyAuthority("Admin", "Editor")
+            .requestMatchers("/questions/**").hasAnyAuthority("Admin", "Assistant", "Assistant")
+            .requestMatchers("/reviews/**").hasAnyAuthority("Admin", "Assistant", "Assistant")
+            .requestMatchers("/customers/**").hasAnyAuthority("Admin", "Salesperson")
+            .requestMatchers("/shipping/**").hasAnyAuthority("Admin", "Salesperson")
+            .requestMatchers("/orders/**").hasAnyAuthority("Admin", "Salesperson", "Shipper")
+            .requestMatchers("/reports/**").hasAnyAuthority("Admin", "Salesperson")
+            .requestMatchers("/articles/**").hasAnyAuthority("Admin")
+            .requestMatchers("/menus/**").hasAnyAuthority("Admin", "Editor")
+            .requestMatchers("/settings/**").hasAnyAuthority("Admin", "Editor")
+//            .requestMatchers("/cart/**").hasAnyAuthority("Admin", "Manager", "User")
+//            .requestMatchers("/checkout/**").hasAnyAuthority("Admin", "Manager", "User")
+//            .requestMatchers("/profile/**").hasAnyAuthority("Admin", "Manager", "User")
+//            .requestMatchers("/login").permitAll()
+//            .requestMatchers("/register").permitAll()
+//            .requestMatchers("/").permitAll()
             .anyRequest().authenticated()
-        )
+    )
+//    http.authorizeHttpRequests(auth -> auth
+//            .anyRequest().authenticated()
+//        )
         .formLogin(form -> form
             .loginPage("/login")
             .usernameParameter("email")
