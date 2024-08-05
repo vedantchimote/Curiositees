@@ -78,6 +78,8 @@ public class WebSecurityConfig {
             .requestMatchers("/articles/**").hasAnyAuthority("Admin")
             .requestMatchers("/menus/**").hasAnyAuthority("Admin", "Editor")
             .requestMatchers("/settings/**").hasAnyAuthority("Admin", "Editor")
+        //To get the json api for all users by admin
+            .requestMatchers("/api/users/all").hasAnyAuthority("Admin")
 //            .requestMatchers("/cart/**").hasAnyAuthority("Admin", "Manager", "User")
 //            .requestMatchers("/checkout/**").hasAnyAuthority("Admin", "Manager", "User")
 //            .requestMatchers("/profile/**").hasAnyAuthority("Admin", "Manager", "User")
