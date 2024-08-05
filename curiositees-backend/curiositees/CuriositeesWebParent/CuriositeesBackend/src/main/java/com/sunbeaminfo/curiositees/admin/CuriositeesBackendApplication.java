@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 @SpringBootApplication
 // This annotation is used to specify the packages to scan for entity classes
 // The entity classes are used to map the database tables to Java objects
-@EntityScan({"com.curiositees.common.entity", "com.sunbeaminfo.curiositees.admin.user"})
+@EntityScan({"com.curiositees.common.entity"})
 public class CuriositeesBackendApplication {
 
   // The main method is used to start the Spring Boot application by running the SpringApplication.run() method

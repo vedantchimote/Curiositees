@@ -13,6 +13,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -23,6 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 // This class provides utility methods for file upload
 public class FileUploadUtil {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(FileUploadUtil.class);
 
   // This method saves a file to a specified directory
   // It takes the directory path, file name, and the file to be saved as input
@@ -63,12 +67,15 @@ public class FileUploadUtil {
           try {
             Files.delete(file);
           } catch (IOException e) {
-            System.out.println("Could not delete file: " + file);
+            LOGGER.error("Could not delete file: " + file);
+            // System.out.println("Could not delete file: " + file);
+
           }
         }
       });
     } catch (IOException e) {
-      System.out.println("Could not list directory: " + dirPath);
+      LOGGER.error("Could not list directory: " + dirPath);
+     // System.out.println("Could not list directory: " + dirPath);
     }
   }
 }
