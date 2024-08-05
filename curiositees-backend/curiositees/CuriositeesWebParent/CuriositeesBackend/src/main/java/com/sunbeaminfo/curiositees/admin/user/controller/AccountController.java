@@ -5,11 +5,12 @@
  * @Time : 10:24 pm
  **/
 
-package com.sunbeaminfo.curiositees.admin.user;
+package com.sunbeaminfo.curiositees.admin.user.controller;
 
 import com.curiositees.common.entity.User;
 import com.sunbeaminfo.curiositees.admin.FileUploadUtil;
 import com.sunbeaminfo.curiositees.admin.security.CuriositeesUserDetails;
+import com.sunbeaminfo.curiositees.admin.user.UserService;
 import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -41,7 +42,7 @@ public class AccountController {
     User user = service.getByEmail(email);
     model.addAttribute("user", user);
 
-    return "account_form";
+    return "users/account_form";
   }
 
   @PostMapping("/account/update")

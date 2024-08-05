@@ -8,7 +8,6 @@
 package com.sunbeaminfo.curiositees.admin.user.export;
 
 import com.curiositees.common.entity.User;
-import com.sunbeaminfo.curiositees.admin.user.AbstractExporter;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;

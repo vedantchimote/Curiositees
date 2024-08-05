@@ -5,12 +5,14 @@
  * @Time : 10:55 am
  **/
 
-package com.sunbeaminfo.curiositees.admin.user;
+package com.sunbeaminfo.curiositees.admin.user.controller;
 
 
 import com.curiositees.common.entity.Role;
 import com.curiositees.common.entity.User;
 import com.sunbeaminfo.curiositees.admin.FileUploadUtil;
+import com.sunbeaminfo.curiositees.admin.user.UserNotFoundException;
+import com.sunbeaminfo.curiositees.admin.user.UserService;
 import com.sunbeaminfo.curiositees.admin.user.export.UserCsvExporter;
 import com.sunbeaminfo.curiositees.admin.user.export.UserExcelExporter;
 import com.sunbeaminfo.curiositees.admin.user.export.UserPdfExporter;
@@ -96,7 +98,7 @@ public class UserController {
     model.addAttribute("reverseSortDir", reverseSortDir);
     model.addAttribute("keyword", keyword);
 
-    return "users";
+    return "users/users";
   }
 
   /* This method is used to display the new user form using the users_form.html template and the User object*/
@@ -108,7 +110,7 @@ public class UserController {
     model.addAttribute("user", user);
     model.addAttribute("listRoles", listRoles);
     model.addAttribute("pageTitle", "Create New User");
-    return "users_form";
+    return "users/users_form";
   }
 
   /*   This method is used to save a user's photo
@@ -168,7 +170,7 @@ public class UserController {
           "Edit User (ID: " + id + " & Email: " + user.getEmail() + ")");
       model.addAttribute("listRoles", listRoles);
 
-      return "users_form";
+      return "users/users_form";
     } catch (UserNotFoundException e) {
       // If the user is not found, add an error message and redirect to the users page with the list of users and the list of roles
       redirectAttributes.addFlashAttribute("message", e.getMessage());

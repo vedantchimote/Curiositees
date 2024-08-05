@@ -5,8 +5,9 @@
  * @Time : 03:32 pm
  **/
 
-package com.sunbeaminfo.curiositees.admin.user;
+package com.sunbeaminfo.curiositees.admin.user.controller;
 
+import com.sunbeaminfo.curiositees.admin.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.PostMapping;
