@@ -7,16 +7,10 @@
 
 package com.sunbeaminfo.curiositees.admin.user.controller;
 
-import com.curiositees.common.entity.User;
 import com.sunbeaminfo.curiositees.admin.user.UserService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -27,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 // This annotation marks the class as a REST controller
 @RestController
-@RequestMapping("/api/users")
 /* This class provides RESTful services for the User entity using the UserService class*/
 public class UserRestController {
 
@@ -38,11 +31,6 @@ public class UserRestController {
   @PostMapping("/users/check_email")
   public String checkDuplicateEmail(@Param("id") Integer id, @Param("email") String email) {
     return userService.isEmailUnique(id, email) ? "OK" : "Duplicated";
-  }
-
-  @GetMapping("/all")
-  public ResponseEntity<List<User>> getAllUsers() {
-    return ResponseEntity.ok(userService.listAll());
   }
 
 }
