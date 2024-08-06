@@ -8,6 +8,7 @@
 package com.sunbeaminfo.curiositees.admin.category;
 
 import com.curiositees.common.entity.Category;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
@@ -16,6 +17,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * @created : 06-08-2024, Tuesday
  **/
 
-public interface CategoryRepository extends PagingAndSortingRepository<Category, Integer> {
+public interface CategoryRepository extends CrudRepository<Category, Integer>,
+    PagingAndSortingRepository<Category, Integer> {
 
 }
