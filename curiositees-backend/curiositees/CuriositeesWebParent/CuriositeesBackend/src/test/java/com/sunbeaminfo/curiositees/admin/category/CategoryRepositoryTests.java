@@ -8,6 +8,7 @@
 package com.sunbeaminfo.curiositees.admin.category;
 
 import com.curiositees.common.entity.Category;
+import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,5 +95,11 @@ public class CategoryRepositoryTests {
 
       printChildren(subCategory, newSubLevel);
     }
+  }
+
+  @Test
+  public void testListRootCategories() {
+    List<Category> rootCategories = repo.findRootCategories();
+    rootCategories.forEach(cat -> System.out.println(cat.getName()));
   }
 }
