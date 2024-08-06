@@ -67,7 +67,7 @@ public class CategoryService {
 
       listSubHierarchicalCategories(hierarchicalCategories, subCategory, newSubLevel);
     }
-    }
+  }
 
   public Category save(Category category) {
     return repo.save(category);
@@ -96,7 +96,8 @@ public class CategoryService {
     return categoriesUsedInForm;
   }
 
-  private void listSubCategoriesUsedInForm(List<Category> categoriesUsedInForm, Category parent, int subLevel) {
+  private void listSubCategoriesUsedInForm(List<Category> categoriesUsedInForm, Category parent,
+      int subLevel) {
     int newSubLevel = subLevel + 1;
     Set<Category> children = parent.getChildren();
 
@@ -112,11 +113,38 @@ public class CategoryService {
       listSubCategoriesUsedInForm(categoriesUsedInForm, subCategory, newSubLevel);
     }
   }
+
   public Category get(Integer id) throws CategoryNotFoundException {
     try {
       return repo.findById(id).get();
     } catch (NoSuchElementException ex) {
       throw new CategoryNotFoundException("Could not find any category with ID " + id);
     }
+  }
+
+  public String checkUnique(Integer id, String name, String alias) {
+    boolean isCreatingNew = (id == null || id == 0);
+
+    Category categoryByName = repo.findByName(name);
+
+    if (isCreatingNew) {
+      if (categoryByName != null) {
+        return "DuplicateName";
+      } else {
+        Category categoryByAlias = repo.findByAlias(alias);
+        if (categoryByAlias != null) {
+          return "DuplicateAlias";
+        }
+      }
+    } else {
+      if (categoryByName != null && categoryByName.getId() != id) {
+        return "DuplicateName";
+      }
+      Category categoryByAlias = repo.findByAlias(alias);
+      if (categoryByAlias != null && categoryByAlias.getId() != id) {
+        return "DuplicateAlias";
+      }
+    }
+    return "OK";
   }
 }
