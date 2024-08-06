@@ -9,6 +9,7 @@ package com.sunbeaminfo.curiositees.admin.category;
 
 import com.curiositees.common.entity.Category;
 import com.sunbeaminfo.curiositees.admin.FileUploadUtil;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -156,7 +157,12 @@ public class CategoryController {
     } catch (CategoryNotFoundException ex) {
       redirectAttributes.addFlashAttribute("message", ex.getMessage());
     }
-
     return "redirect:/categories";
+  }
+  @GetMapping("/categories/export/csv")
+  public void exportToCSV(HttpServletResponse response) throws IOException {
+    List<Category> listCategories = service.listCategoriesUsedInForm();
+    CategoryCsvExporter exporter = new CategoryCsvExporter();
+    exporter.export(listCategories, response);
   }
 }

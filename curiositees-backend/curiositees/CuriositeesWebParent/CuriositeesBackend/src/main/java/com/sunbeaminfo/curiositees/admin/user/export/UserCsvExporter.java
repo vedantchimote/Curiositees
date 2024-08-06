@@ -35,7 +35,7 @@ public class UserCsvExporter extends AbstractExporter {
 //    String headerValue = "attachment; filename=" + fileName;
 //    response.setHeader(headerKey, headerValue);
 
-    super.setResponseHeader(response, "text/csv", ".csv");
+    super.setResponseHeader(response, "text/csv", ".csv", "users_");
 
     ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(),
         CsvPreference.STANDARD_PREFERENCE);
