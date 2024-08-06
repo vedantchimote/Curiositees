@@ -97,6 +97,7 @@
       <!--    http://localhost:8090/CuriositeesAdmin/swagger-ui/index.html#/-->
     </dependency>
 
+    <!-- Thymeleaf Spring Security -->
     <dependency>
       <groupId>org.thymeleaf.extras</groupId>
       <artifactId>thymeleaf-extras-springsecurity6</artifactId>
