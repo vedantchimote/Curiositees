@@ -9,6 +9,8 @@ package com.sunbeaminfo.curiositees.admin.category;
 
 import com.curiositees.common.entity.Category;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -30,6 +32,9 @@ public interface CategoryRepository extends CrudRepository<Category, Integer>,
   @Query("UPDATE Category c SET c.enabled = ?2 WHERE c.id = ?1")
   @Modifying
   public void updateEnabledStatus(Integer id, boolean enabled);
+
+  @Query("SELECT c FROM Category c WHERE c.parent.id is NULL")
+  public Page<Category> findRootCategories(Pageable pageable);
 
   public Long countById(Integer id);
 
