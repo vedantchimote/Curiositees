@@ -51,12 +51,32 @@ public class Category {
 
   @OneToMany(mappedBy = "parent")
   private Set<Category> children = new HashSet<>();
+  @Transient
+  private boolean hasChildren;
 
   public Category() {
   }
 
   public Category(Integer id) {
     this.id = id;
+  }
+
+  public Category(String name) {
+    this.name = name;
+    this.alias = name;
+    this.image = "default.png";
+  }
+
+  public Category(String name, Category parent) {
+    this(name);
+    this.parent = parent;
+  }
+
+  public Category(Integer id, String name, String alias) {
+    super();
+    this.id = id;
+    this.name = name;
+    this.alias = alias;
   }
 
   public static Category copyIdAndName(Category category) {
@@ -82,6 +102,7 @@ public class Category {
     copyCategory.setImage(category.getImage());
     copyCategory.setAlias(category.getAlias());
     copyCategory.setEnabled(category.isEnabled());
+    copyCategory.setHasChildren(category.getChildren().size() > 0);
 
     return copyCategory;
   }
@@ -91,24 +112,6 @@ public class Category {
     copyCategory.setName(name);
 
     return copyCategory;
-  }
-
-  public Category(String name) {
-    this.name = name;
-    this.alias = name;
-    this.image = "default.png";
-  }
-
-  public Category(String name, Category parent) {
-    this(name);
-    this.parent = parent;
-  }
-
-  public Category(Integer id, String name, String alias) {
-    super();
-    this.id = id;
-    this.name = name;
-    this.alias = alias;
   }
 
   public Integer getId() {
@@ -169,7 +172,17 @@ public class Category {
 
   @Transient
   public String getImagePath() {
-    if (this.id == null) return "/images/image-thumbnail.png";
+    if (this.id == null) {
+      return "/images/image-thumbnail.png";
+    }
     return "/category-images/" + this.id + "/" + this.image;
+  }
+
+  public boolean isHasChildren() {
+    return hasChildren;
+  }
+
+  public void setHasChildren(boolean hasChildren) {
+    this.hasChildren = hasChildren;
   }
 }
