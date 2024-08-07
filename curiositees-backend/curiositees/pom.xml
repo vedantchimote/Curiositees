@@ -69,7 +69,8 @@
     <repository>
       <id>curiositees</id>
       <name>Curiositees</name>
-      <url>https://github.com/vedantchimote/Curiositees.git</url>
+<!--      <url>https://github.com/vedantchimote/Curiositees.git</url>-->
+      <url>https://maven.pkg.github.com/vedantchimote/Curiositees.git</url>
     </repository>
   </distributionManagement>
 
