@@ -27,4 +27,65 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>
+              <artifactId>lombok</artifactId>
+              <groupId>org.projectlombok</groupId>
+            </exclude>
+          </excludes>
+        </configuration>
+        <groupId>org.springframework.boot</groupId>
+      </plugin>
+
+      <!-- Maven Release Plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <configuration>
+          <goals>install</goals>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <checkModificationExcludes>
+            <checkModificationExclude>pom.xml</checkModificationExclude>
+          </checkModificationExcludes>
+        </configuration>
+      </plugin>
+    </plugins>
+
+    <!-- setting the final name for the docker image -->
+    <finalName>curiositees</finalName>
+  </build>
+
+  <!-- Following distributionManagement object required for maven release plugin -->
+  <distributionManagement>
+    <repository>
+      <id>curiositees</id>
+      <name>Curiositees</name>
+      <url>https://github.com/vedantchimote/Curiositees.git</url>
+    </repository>
+  </distributionManagement>
+
+  <!-- Following scm object required for maven release plugin -->
+  <developers>
+    <developer>
+      <name>Vedant Chimote</name>
+      <email>vedantc.code@gmail.com</email>
+      <organization>tech.vedantchimote</organization>
+      <organizationUrl>https://github.com/vedantchimote</organizationUrl>
+    </developer>
+  </developers>
+
+  <!-- Following scm object required for maven release plugin -->
+  <scm>
+    <connection>scm:git:git@github.com:vedantchimote/Curiositees.git</connection>
+    <developerConnection>scm:git:git@github.com:vedantchimote/Curiositees.git</developerConnection>
+    <url>https://github.com/vedantchimote/Curiositees.git</url>
+    <tag>curiositees</tag>
+  </scm>
+
 </project>
