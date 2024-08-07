@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns="http://maven.apache.org/POM/4.0.0"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <artifactId>CuriositeesWebParent</artifactId>
 
   <dependencies>
@@ -36,12 +34,11 @@
       <groupId>org.springframework.boot</groupId>
     </dependency>
 
-
     <!-- CuriositeesCommon Dependency-->
     <dependency>
       <artifactId>CuriositeesCommon</artifactId>
       <groupId>com.sunbeaminfo</groupId>
-      <version>0.0.1-SNAPSHOT</version>
+      <version>1.0</version>
     </dependency>
 
     <!-- JPA Dependency-->
@@ -103,7 +100,7 @@
   <parent>
     <artifactId>spring-boot-starter-parent</artifactId>
     <groupId>org.springframework.boot</groupId>
-    <relativePath/>
+    <relativePath />
     <version>3.2.5</version> <!-- lookup parent from repository -->
   </parent>
 
@@ -111,7 +108,7 @@
     <java.version>17</java.version>
   </properties>
 
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0</version>
 
   <build>
     <plugins>
@@ -129,5 +126,9 @@
       </plugin>
     </plugins>
   </build>
+
+  <scm>
+    <tag>curiositees-1.0</tag>
+  </scm>
 
 </project>

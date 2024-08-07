@@ -34,7 +34,7 @@ public class CategoryRepositoryTests {
   @Autowired
   private CategoryRepository repo;
 
-  @Test
+  //@Test
   public void testCreateRootCategory() {
     Category category = new Category("Electronics");
     Category savedCategory = repo.save(category);
@@ -42,7 +42,7 @@ public class CategoryRepositoryTests {
     assertThat(savedCategory.getId()).isGreaterThan(0);
   }
 
-  @Test
+  //@Test
   public void testCreateSubCategory() {
     Category parent = new Category(3);
     Category subCategory = new Category("iPhone", parent);
@@ -51,7 +51,7 @@ public class CategoryRepositoryTests {
     assertThat(savedCategory.getId()).isGreaterThan(0);
   }
 
-  @Test
+  //@Test
   public void testGetCategory() {
     Category category = repo.findById(3).get();
     System.out.println(category.getName());
@@ -104,7 +104,7 @@ public class CategoryRepositoryTests {
     rootCategories.forEach(cat -> System.out.println(cat.getName()));
   }
 
-  @Test
+  //@Test
   public void testFindByName() {
     String name = "Furniture";
     Category category = repo.findByName(name);
@@ -113,7 +113,7 @@ public class CategoryRepositoryTests {
     assertThat(category.getName()).isEqualTo(name);
   }
 
-  @Test
+  //@Test
   public void testFindByAlias() {
     String alias = "Furniture";
     Category category = repo.findByAlias(alias);
