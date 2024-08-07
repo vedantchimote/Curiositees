@@ -14,7 +14,7 @@
   </dependencies>
   <description>CuriositeesCommon</description>
   <groupId>com.sunbeaminfo</groupId>
-  <version>1.3-SNAPSHOT</version>
+  <version>1.3</version>
   <modelVersion>4.0.0</modelVersion>
   <name>CuriositeesCommon</name>
   <parent>
@@ -28,6 +28,6 @@
   </properties>
 
   <scm>
-    <tag>1.1</tag>
+    <tag>curiositees-1.3</tag>
   </scm>
 </project>
