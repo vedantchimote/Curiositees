@@ -22,7 +22,7 @@
   <parent>
     <artifactId>CuriositeesWebParent</artifactId>
     <groupId>com.sunbeaminfo</groupId>
-    <version>1.5-SNAPSHOT</version>
+    <version>1.5</version>
   </parent>
 
   <properties>

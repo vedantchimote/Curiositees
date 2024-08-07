@@ -87,7 +87,7 @@
     <dependency>
       <groupId>com.sunbeaminfo</groupId>
       <artifactId>CuriositeesCommon</artifactId>
-      <version>1.5-SNAPSHOT</version>
+      <version>1.5</version>
     </dependency>
 
   </dependencies>
@@ -113,7 +113,7 @@
     <java.version>17</java.version>
   </properties>
 
-  <version>1.5-SNAPSHOT</version>
+  <version>1.5</version>
 
   <build>
     <plugins>
@@ -133,7 +133,7 @@
   </build>
 
   <scm>
-    <tag>1.1</tag>
+    <tag>curiositees-1.5</tag>
   </scm>
 
 </project>
