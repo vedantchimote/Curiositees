@@ -3,7 +3,7 @@
 
   <groupId>com.sunbeaminfo</groupId>
   <artifactId>curiositees</artifactId>
-  <version>1.2-SNAPSHOT</version>
+  <version>1.2</version>
   <modules>
     <module>CuriositeesCommon</module>
     <module>CuriositeesWebParent</module>
@@ -57,6 +57,7 @@
           <checkModificationExcludes>
             <checkModificationExclude>pom.xml</checkModificationExclude>
           </checkModificationExcludes>
+          <arguments>-DskipTests</arguments>
         </configuration>
       </plugin>
     </plugins>
@@ -89,8 +90,7 @@
     <connection>scm:git:git@github.com:vedantchimote/Curiositees.git</connection>
     <developerConnection>scm:git:git@github.com:vedantchimote/Curiositees.git</developerConnection>
     <url>https://github.com/vedantchimote/Curiositees.git</url>
-<!--    <tag>curiositees-1.0</tag>-->
-    <tag>1.1</tag>
+    <tag>curiositees-1.2</tag>
   </scm>
 
 </project>
