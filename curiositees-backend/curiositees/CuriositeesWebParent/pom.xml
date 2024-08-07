@@ -38,7 +38,6 @@
     <dependency>
       <artifactId>CuriositeesCommon</artifactId>
       <groupId>com.sunbeaminfo</groupId>
-      <version>1.0</version>
     </dependency>
 
     <!-- JPA Dependency-->
