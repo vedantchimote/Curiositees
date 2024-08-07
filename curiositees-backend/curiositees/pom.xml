@@ -57,6 +57,8 @@
           <checkModificationExcludes>
             <checkModificationExclude>pom.xml</checkModificationExclude>
           </checkModificationExcludes>
+
+          <!-- Important to add, if tests fail, build fails -->
           <arguments>-DskipTests</arguments>
         </configuration>
       </plugin>
