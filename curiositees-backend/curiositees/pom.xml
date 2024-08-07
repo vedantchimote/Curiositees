@@ -25,10 +25,6 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-<!--    <dependency>-->
-<!--      <groupId>org.apache.maven.scm</groupId>-->
-<!--      <artifactId>maven-scm-provider-gitexe</artifactId>-->
-<!--    </dependency>-->
   </dependencies>
 
   <build>
