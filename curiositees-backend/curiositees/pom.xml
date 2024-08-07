@@ -3,7 +3,7 @@
 
   <groupId>com.sunbeaminfo</groupId>
   <artifactId>curiositees</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.1</version>
   <modules>
     <module>CuriositeesCommon</module>
     <module>CuriositeesWebParent</module>
@@ -90,6 +90,7 @@
     <developerConnection>scm:git:git@github.com:vedantchimote/Curiositees.git</developerConnection>
     <url>https://github.com/vedantchimote/Curiositees.git</url>
 <!--    <tag>curiositees-1.0</tag>-->
+    <tag>1.1</tag>
   </scm>
 
 </project>

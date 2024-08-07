@@ -108,7 +108,7 @@
     <java.version>17</java.version>
   </properties>
 
-  <version>1.0-SNAPSHOT</version>
+  <version>1.1</version>
 
   <build>
     <plugins>
@@ -128,7 +128,7 @@
   </build>
 
   <scm>
-    <tag>curiositees-1.0</tag>
+    <tag>1.1</tag>
   </scm>
 
 </project>
