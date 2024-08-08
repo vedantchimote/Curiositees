@@ -61,7 +61,7 @@
     </plugins>
 
     <!-- setting the final name for the docker image -->
-    <finalName>curiositees</finalName>
+    <!-- <finalName>curiositees</finalName> -->
   </build>
 
   <!-- Following distributionManagement object required for maven release plugin -->

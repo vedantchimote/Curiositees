@@ -8,6 +8,9 @@
         <groupId>org.springframework.boot</groupId>
       </plugin>
     </plugins>
+
+    <!-- setting the final name for the docker image -->
+    <finalName>curiositees-backend</finalName>
   </build>
 
   <dependencies>

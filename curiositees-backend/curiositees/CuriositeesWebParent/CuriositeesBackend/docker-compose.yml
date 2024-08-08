@@ -1,0 +1,69 @@
+#This is the version of the Compose file format. This will be used to determine what features will
+#be available for use in the Compose file.
+version: "3.8"
+
+# This is the name of the service. This name will be used to refer to the service in other parts of the Compose file.
+services:
+  mysqldb:
+    # This is the image that will be used to create the container for the service.
+    image: mysql:latest
+    restart: unless-stopped
+    #    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=curiositeesdb
+    ports:
+      #      - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+      - 3333:3333
+    networks:
+      - bootapp
+    # This is the volume that will be mounted to the container.
+    # This volume will be used to store the data for the MySQL database.
+    volumes:
+      - db:/var/lib/mysql
+
+    # This is the service that will be used to run the Spring Boot application.
+  sbapp:
+    depends_on:
+      - mysqldb
+
+    # This is the image that will be used to create the container for the service.
+    image: curiositees-backend:latest
+
+    build: ./
+    restart: on-failure
+    #    env_file: ./.env
+
+    # This is the port that will be used to access the Spring Boot application.
+    ports:
+      #      - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
+      - 8090:8090
+
+    # This is the network that the service will be connected to.
+    networks:
+      - bootapp
+    environment:
+      - spring.datasource.url=jdbc:mysql://mysqldb:3306/curiositeesdb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      - spring.datasource.username=root
+      - spring.datasource.password=root
+    #      SPRING_APPLICATION_JSON: '{
+    #        "spring.datasource.url"  : "jdbc:mysql://mysqldb:$MYSQLDB_DOCKER_PORT/$MYSQLDB_DATABASE?createDatabaseIfNotExist=true&useSSL=false",
+    ##        "spring.datasource.username" : "$MYSQLDB_USER",
+    ##        "spring.datasource.password" : "$MYSQLDB_ROOT_PASSWORD",
+    #         "spring.datasource.username" : "$MYSQLDB_USER",
+    #        "spring.datasource.password" : "$MYSQLDB_ROOT_PASSWORD",
+    #        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
+    #        "spring.jpa.hibernate.ddl-auto" : "update"
+    #      }'
+    volumes:
+      - .m2:/root/.m2
+    stdin_open: true
+    tty: true
+
+# This is the volume that will be used to store the data for the MySQL database.
+volumes:
+  db:
+
+# This is the network that will be used to connect the services.
+networks:
+  bootapp:
