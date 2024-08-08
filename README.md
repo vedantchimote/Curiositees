@@ -7,7 +7,25 @@ Curiositees is an e-commerce project developed using Spring Boot and ReactJS. It
 
 The project utilizes the latest version of Spring Boot and incorporates Spring Data JPA and Hibernate for handling the complexity of data persistence operations. The persistence side of the application is managed using MySQL database.
 
-The backend project structure is as follows:
+### Deployment
+
+* #### DockerHub
+
+  * ##### [CuriositeesFrontend](https://hub.docker.com/repository/docker/vedantchimote/curiositees-frontend/general)
+  
+  `docker pull vedantchimote/curiositees-backend:1.0 `
+  
+    * ##### [CuriositeesBackend](https://hub.docker.com/repository/docker/vedantchimote/curiositees-backend/general)
+
+  `docker pull vedantchimote/curiositees-backend:1.0`
+
+* #### Azure
+    
+    * ##### [CuriositeesAdmin](http://172.174.208.204:8090/CuriositeesAdmin/login)
+
+    * ##### [CuriositeesUser](http://172.174.208.204:8090/CuriositeesAdmin/login)
+
+### The backend project structure is as follows:
 
 ```
 CuriositeesProject (root project) (pom)
@@ -26,10 +44,16 @@ The blood, sweat, and tears 😅💪🏽💦 that has been put into this project
 </h3>
 <br>
 
+### Class-Diagrams
+
 * #### CuriositeesCommon Module
 
-<img src="https://raw.githubusercontent.com/vedantchimote/Curiositees/main/curiositees-resources/ProjectProgressClassDiagrams/CuriositeesCommon.png" />
+<img src="https://raw.githubusercontent.com/vedantchimote/Curiositees/main/curiositees-diagrams/class-diagrams/v2/CuriositeesCommon/CuriositeesCommon.png" />
+
+* #### CuriositeesFrontend Module
+
+<img src="https://raw.githubusercontent.com/vedantchimote/Curiositees/main/curiositees-diagrams/class-diagrams/v2/CuriositeesFrontend/CuriositeesFrontend.png" />
 
 * #### CuriositeesBackend Module
 
-<img src="https://raw.githubusercontent.com/vedantchimote/Curiositees/main/curiositees-resources/ProjectProgressClassDiagrams/CuriositeesBackend.png" />
+<img src="https://raw.githubusercontent.com/vedantchimote/Curiositees/main/curiositees-diagrams/class-diagrams/v2/CuriositeesBackend/CuriositeesBackend.png" />
