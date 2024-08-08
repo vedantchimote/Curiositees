@@ -1,0 +1,282 @@
+@startuml
+left to right direction 
+class com.sunbeaminfo.curiositees.admin.security.WebSecurityConfig {
++ UserDetailsService userDetailsService()
++ PasswordEncoder passwordEncoder()
+~ DaoAuthenticationProvider authenticationProvider()
+~ SecurityFilterChain configureHttp(HttpSecurity)
+~ WebSecurityCustomizer configureWebSecurity()
+}
+
+class com.sunbeaminfo.curiositees.admin.MainController {
++ String viewHomePage()
++ String viewLoginPage()
+}
+
+class com.sunbeaminfo.curiositees.admin.security.CuriositeesUserDetailsService {
+- UserRepository userRepo
++ UserDetails loadUserByUsername(String)
+}
+
+
+class com.sunbeaminfo.curiositees.admin.user.UserRepositoryTests {
+- UserRepository userRepository
+- TestEntityManager testEntityManager
++ void testCreateUserWithOneRole()
++ void testCreateUserWithTwoRoles()
++ void testListAllUsers()
++ void testGetUserById()
++ void testUpdateUserDetails()
++ void testUpdateUserRoles()
++ void testDeleteUser()
++ void testGetUserByEmail()
++ void testCountById()
++ void testDisableUser()
++ void testEnableUser()
++ void testListFirstPage()
++ void testSearchUsers()
+}
+
+
+class com.sunbeaminfo.curiositees.admin.category.CategoryPageInfo {
+- int totalPages
+- long totalElements
++ int getTotalPages()
++ void setTotalPages(int)
++ long getTotalElements()
++ void setTotalElements(long)
+}
+
+
+class com.sunbeaminfo.curiositees.admin.user.controller.UserController {
+- UserService userService
+- {static} String getString(User)
++ String listFirstPage(Model)
++ String listByPage(Model,int,String,String,String)
++ String newUser(Model)
++ String saveUser(User,RedirectAttributes,MultipartFile)
++ String editUser(Integer,Model,RedirectAttributes)
++ String deleteUser(Integer,RedirectAttributes)
++ String updateUserEnabledStatus(Integer,boolean,RedirectAttributes)
++ void exportToCSV(HttpServletResponse)
++ void exportToExcel(HttpServletResponse)
++ void exportToPDF(HttpServletResponse)
+}
+
+
+class com.sunbeaminfo.curiositees.admin.security.CuriositeesUserDetails {
+- User user
++ <<Create>> CuriositeesUserDetails(User)
++ Collection<? extends GrantedAuthority> getAuthorities()
++ String getPassword()
++ String getUsername()
++ boolean isAccountNonExpired()
++ boolean isAccountNonLocked()
++ boolean isCredentialsNonExpired()
++ boolean isEnabled()
++ String getFullname()
++ void setFirstName(String)
++ void setLastName(String)
+}
+
+
+class com.sunbeaminfo.curiositees.admin.category.CategoryRestController {
+- CategoryService service
++ String checkUnique(Integer,String,String)
+}
+
+
+class com.sunbeaminfo.curiositees.admin.category.CategoryServiceTests {
+- CategoryRepository repo
+- CategoryService service
++ void testCheckUniqueInNewModeReturnDuplicateName()
++ void testCheckUniqueInNewModeReturnDuplicateAlias()
++ void testCheckUniqueInNewModeReturnOK()
++ void testCheckUniqueInEditModeReturnDuplicateName()
++ void testCheckUniqueInEditModeReturnDuplicateAlias()
++ void testCheckUniqueInEditModeReturnOK()
+}
+
+
+class com.sunbeaminfo.curiositees.admin.MvcConfig {
++ void addResourceHandlers(ResourceHandlerRegistry)
+}
+
+class com.sunbeaminfo.curiositees.admin.FileUploadUtil {
+- {static} Logger LOGGER
++ {static} void saveFile(String,String,MultipartFile)
++ {static} void cleanDir(String)
++ {static} void removeDir(String)
+}
+
+
+class com.sunbeaminfo.curiositees.admin.user.export.UserCsvExporter {
++ void export(List<User>,HttpServletResponse)
+}
+
+interface com.sunbeaminfo.curiositees.admin.user.RoleRepository {
+}
+class com.sunbeaminfo.curiositees.admin.user.export.UserExcelExporter {
+- XSSFWorkbook workbook
+- XSSFSheet sheet
++ <<Create>> UserExcelExporter()
+- void writeHeaderLine()
+- void createCell(XSSFRow,int,Object,CellStyle)
++ void export(List<User>,HttpServletResponse)
+- void writeDataLines(List<User>)
+}
+
+
+class com.sunbeaminfo.curiositees.admin.user.export.UserPdfExporter {
++ void export(List<User>,HttpServletResponse)
+- void writeTableData(PdfPTable,List<User>)
+- void writeTableHeader(PdfPTable)
+}
+
+class com.sunbeaminfo.curiositees.admin.category.CategoryRepositoryTests {
+- CategoryRepository repo
++ void testCreateRootCategory()
++ void testCreateSubCategory()
++ void testGetCategory()
++ void testPrintHierarchicalCategories()
+- void printChildren(Category,int)
++ void testListRootCategories()
++ void testFindByName()
++ void testFindByAlias()
+}
+
+
+class com.sunbeaminfo.curiositees.admin.user.RoleRepositoryTests {
+- RoleRepository roleRepository
++ void testCreateFirstRole()
++ void testCreateRestRoles()
+}
+
+
+class com.sunbeaminfo.curiositees.admin.CuriositeesBackendApplicationTests {
+~ void contextLoads()
+}
+
+class com.sunbeaminfo.curiositees.admin.CuriositeesBackendApplication {
++ {static} void main(String[])
+}
+
+interface com.sunbeaminfo.curiositees.admin.category.CategoryRepository {
++ List<Category> findRootCategories(Sort)
++ void updateEnabledStatus(Integer,boolean)
++ Page<Category> findRootCategories(Pageable)
++ Page<Category> search(String,Pageable)
++ Long countById(Integer)
++ Category findByName(String)
++ Category findByAlias(String)
+}
+
+interface com.sunbeaminfo.curiositees.admin.user.UserRepository {
++ User getUserByEmail(String)
++ Long countById(Integer)
++ Page<User> findAll(String,Pageable)
++ void updateEnabledStatus(Integer,boolean)
+}
+
+class com.sunbeaminfo.curiositees.admin.user.UserService {
++ {static} int USERS_PER_PAGE
+- UserRepository userRepository
+- RoleRepository roleRepository
+- PasswordEncoder passwordEncoder
++ User getByEmail(String)
++ List<User> listAll()
++ Page<User> listByPage(int,String,String,String)
++ List<Role> listRoles()
++ User save(User)
++ User updateAccount(User)
+- void encodePassword(User)
++ boolean isEmailUnique(Integer,String)
++ User get(Integer)
++ void delete(Integer)
++ void updateUserEnabledStatus(Integer,boolean)
+}
+
+
+class com.sunbeaminfo.curiositees.admin.user.controller.AccountController {
+- UserService service
++ String viewDetails(CuriositeesUserDetails,Model)
++ String saveDetails(User,RedirectAttributes,CuriositeesUserDetails,MultipartFile)
+}
+
+
+class com.sunbeaminfo.curiositees.admin.category.CategoryNotFoundException {
+- {static} long serialVersionUID
++ <<Create>> CategoryNotFoundException(String)
+}
+
+
+class com.sunbeaminfo.curiositees.admin.category.CategoryController {
+- CategoryService service
++ String listFirstPage(String,Model)
++ String listByPage(int,String,String,Model)
++ String newCategory(Model)
++ String saveCategory(Category,MultipartFile,RedirectAttributes)
++ String editCategory(Integer,Model,RedirectAttributes)
++ String updateCategoryEnabledStatus(Integer,boolean,RedirectAttributes)
++ String deleteCategory(Integer,Model,RedirectAttributes)
++ void exportToCSV(HttpServletResponse)
+}
+
+
+class com.sunbeaminfo.curiositees.admin.category.CategoryService {
++ {static} int ROOT_CATEGORIES_PER_PAGE
+- CategoryRepository repo
++ List<Category> listByPage(CategoryPageInfo,int,String,String)
+- List<Category> listHierarchicalCategories(List<Category>,String)
+- void listSubHierarchicalCategories(List<Category>,Category,int,String)
++ Category save(Category)
++ List<Category> listCategoriesUsedInForm()
+- void listSubCategoriesUsedInForm(List<Category>,Category,int)
++ Category get(Integer)
++ String checkUnique(Integer,String,String)
+- SortedSet<Category> sortSubCategories(Set<Category>)
+- SortedSet<Category> sortSubCategories(Set<Category>,String)
++ void updateCategoryEnabledStatus(Integer,boolean)
++ void delete(Integer)
+}
+
+
+class com.sunbeaminfo.curiositees.admin.user.PasswordEncoderTest {
++ void testEncodePassword()
+}
+
+class com.sunbeaminfo.curiositees.admin.user.controller.UserRestController {
+- UserService userService
++ String checkDuplicateEmail(Integer,String)
+}
+
+
+class com.sunbeaminfo.curiositees.admin.user.UserNotFoundException {
++ <<Create>> UserNotFoundException(String)
+}
+
+class com.sunbeaminfo.curiositees.admin.user.export.AbstractExporter {
++ void setResponseHeader(HttpServletResponse,String,String,String)
+}
+
+class com.sunbeaminfo.curiositees.admin.category.CategoryCsvExporter {
++ void export(List<Category>,HttpServletResponse)
+}
+
+
+
+org.springframework.security.core.userdetails.UserDetailsService <|.. com.sunbeaminfo.curiositees.admin.security.CuriositeesUserDetailsService
+org.springframework.security.core.userdetails.UserDetails <|.. com.sunbeaminfo.curiositees.admin.security.CuriositeesUserDetails
+org.springframework.web.servlet.config.annotation.WebMvcConfigurer <|.. com.sunbeaminfo.curiositees.admin.MvcConfig
+com.sunbeaminfo.curiositees.admin.user.export.AbstractExporter <|-- com.sunbeaminfo.curiositees.admin.user.export.UserCsvExporter
+org.springframework.data.repository.CrudRepository <|-- com.sunbeaminfo.curiositees.admin.user.RoleRepository
+com.sunbeaminfo.curiositees.admin.user.export.AbstractExporter <|-- com.sunbeaminfo.curiositees.admin.user.export.UserExcelExporter
+com.sunbeaminfo.curiositees.admin.user.export.AbstractExporter <|-- com.sunbeaminfo.curiositees.admin.user.export.UserPdfExporter
+org.springframework.data.repository.CrudRepository <|-- com.sunbeaminfo.curiositees.admin.category.CategoryRepository
+org.springframework.data.repository.PagingAndSortingRepository <|-- com.sunbeaminfo.curiositees.admin.category.CategoryRepository
+org.springframework.data.repository.CrudRepository <|-- com.sunbeaminfo.curiositees.admin.user.UserRepository
+org.springframework.data.repository.PagingAndSortingRepository <|-- com.sunbeaminfo.curiositees.admin.user.UserRepository
+com.sunbeaminfo.curiositees.admin.category.Exception <|-- com.sunbeaminfo.curiositees.admin.category.CategoryNotFoundException
+com.sunbeaminfo.curiositees.admin.user.Exception <|-- com.sunbeaminfo.curiositees.admin.user.UserNotFoundException
+com.sunbeaminfo.curiositees.admin.user.export.AbstractExporter <|-- com.sunbeaminfo.curiositees.admin.category.CategoryCsvExporter
+@enduml

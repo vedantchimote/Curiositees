@@ -1,0 +1,14 @@
+@startuml
+class com.sunbeaminfo.curiositees.site.CuriositeesFrontendApplication {
++ {static} void main(String[])
+}
+
+class com.sunbeaminfo.curiositees.site.CuriositeesFrontendApplicationTests {
+~ void contextLoads()
+}
+
+class com.sunbeaminfo.curiositees.site.MainController {
++ String viewHomePage()
+}
+
+@enduml

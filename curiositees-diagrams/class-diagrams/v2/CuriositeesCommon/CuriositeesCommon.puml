@@ -1,0 +1,70 @@
+@startuml
+class com.curiositees.common.entity.Category {
+- Integer id
+- String name
+- String alias
+- String image
+- boolean enabled
+- Category parent
+- Set<Category> children
+- boolean hasChildren
++ <<Create>> Category()
++ <<Create>> Category(Integer)
++ <<Create>> Category(String)
++ <<Create>> Category(String,Category)
++ <<Create>> Category(Integer,String,String)
++ {static} Category copyIdAndName(Category)
++ {static} Category copyIdAndName(Integer,String)
++ {static} Category copyFull(Category)
++ {static} Category copyFull(Category,String)
++ Integer getId()
++ void setId(Integer)
++ String getName()
++ void setName(String)
++ String getAlias()
++ void setAlias(String)
++ String getImage()
++ void setImage(String)
++ boolean isEnabled()
++ void setEnabled(boolean)
++ Category getParent()
++ void setParent(Category)
++ Set<Category> getChildren()
++ void setChildren(Set<Category>)
++ String getImagePath()
++ boolean isHasChildren()
++ void setHasChildren(boolean)
+}
+
+
+class com.curiositees.common.entity.User {
+- Integer id
+- String email
+- String password
+- String firstName
+- String lastName
+- String photos
+- boolean enabled
+- Set<Role> roles
++ <<Create>> User(String,String,String,String)
++ void addRole(Role)
++ String toString()
++ String getPhotosImagePath()
++ String getFullName()
+}
+
+
+class com.curiositees.common.entity.Role {
+- Integer id
+- String name
+- String description
++ <<Create>> Role(String,String)
++ <<Create>> Role(Integer)
++ <<Create>> Role(String)
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+@enduml
