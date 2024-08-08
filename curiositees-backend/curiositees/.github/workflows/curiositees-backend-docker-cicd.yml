@@ -27,8 +27,8 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Move to Appriopriate Directory
-      run: cd ../../curiositees-backend/curiositees/CuriositeesWebParent/CuriositeesBackend
+#    - name: Move to Appriopriate Directory
+#      run: cd ../../curiositees-backend/curiositees/CuriositeesWebParent/CuriositeesBackend
     - name: Build with Maven
       run: mvn clean install
 
