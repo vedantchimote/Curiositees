@@ -7,7 +7,7 @@ Curiositees is an e-commerce project developed using Spring Boot and ReactJS. It
 
 The project utilizes the latest version of Spring Boot and incorporates Spring Data JPA and Hibernate for handling the complexity of data persistence operations. The persistence side of the application is managed using MySQL database.
 
-### Deployment
+### Deployment:
 
 * #### DockerHub
 
@@ -44,7 +44,7 @@ The blood, sweat, and tears 😅💪🏽💦 that has been put into this project
 </h3>
 <br>
 
-### Class-Diagrams
+### Class-Diagrams:
 
 * #### CuriositeesCommon Module
 
