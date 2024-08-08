@@ -1,0 +1,95 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.sunbeaminfo</groupId>
+  <artifactId>curiositees</artifactId>
+  <version>1.6-SNAPSHOT</version>
+  <modules>
+    <module>CuriositeesCommon</module>
+    <module>CuriositeesWebParent</module>
+  </modules>
+
+  <name>curiositees</name>
+  <url>http://maven.apache.org</url>
+
+  <packaging>pom</packaging>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>
+              <artifactId>lombok</artifactId>
+              <groupId>org.projectlombok</groupId>
+            </exclude>
+          </excludes>
+        </configuration>
+        <groupId>org.springframework.boot</groupId>
+      </plugin>
+
+      <!-- Maven Release Plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>3.1.1</version>
+        <configuration>
+          <goals>install</goals>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <checkModificationExcludes>
+            <checkModificationExclude>pom.xml</checkModificationExclude>
+          </checkModificationExcludes>
+
+          <!-- Important to add, if tests fail, build fails -->
+          <arguments>-DskipTests</arguments>
+        </configuration>
+      </plugin>
+    </plugins>
+
+    <!-- setting the final name for the docker image -->
+    <!-- <finalName>curiositees</finalName> -->
+  </build>
+
+  <!-- Following distributionManagement object required for maven release plugin -->
+  <distributionManagement>
+    <repository>
+      <id>curiositees</id>
+      <name>Curiositees</name>
+<!--      <url>https://github.com/vedantchimote/Curiositees.git</url>-->
+      <url>https://maven.pkg.github.com/vedantchimote/Curiositees.git</url>
+    </repository>
+  </distributionManagement>
+
+  <!-- Following scm object required for maven release plugin -->
+  <developers>
+    <developer>
+      <name>Vedant Chimote</name>
+      <email>vedantc.code@gmail.com</email>
+      <organization>tech.vedantchimote</organization>
+      <organizationUrl>https://github.com/vedantchimote</organizationUrl>
+    </developer>
+  </developers>
+
+  <!-- Following scm object required for maven release plugin -->
+  <scm>
+    <connection>scm:git:git@github.com:vedantchimote/Curiositees.git</connection>
+    <developerConnection>scm:git:git@github.com:vedantchimote/Curiositees.git</developerConnection>
+    <url>https://github.com/vedantchimote/Curiositees.git</url>
+    <tag>curiositees-1.0</tag>
+  </scm>
+
+</project>
