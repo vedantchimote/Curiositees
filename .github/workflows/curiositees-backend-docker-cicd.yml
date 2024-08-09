@@ -27,10 +27,10 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-#    - name: Move to Appriopriate Directory
-#      run: cd ../../curiositees-backend/curiositees/CuriositeesWebParent/CuriositeesBackend
     - name: Build with Maven
-      run: mvn clean install
+#      run: mvn clean install
+#      run: mvn -f /home/user/myproject/pom.xml clean install
+      run: mvn -f /curiositees-backend/curiositees/CuriositeesWebParent/pom.xml clean install
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
