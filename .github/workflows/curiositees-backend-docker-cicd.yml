@@ -29,8 +29,8 @@ jobs:
         cache: maven
     - name: Build with Maven
 #      run: mvn clean install
-      run: mvn -f curiositees-backend/curiositees/ clean install -DskipTests
-#      run: mvn -f /curiositees-backend/curiositees/CuriositeesWebParent/pom.xml clean install
+ #     run: mvn -f curiositees-backend/curiositees/ clean install -DskipTests
+      run: mvn -f curiositees-backend/curiositees/CuriositeesWebParent/pom.xml clean install
  #     run: mvn -f E:\New spring\CDAC\New\curiositees-backend\curiositees\ clean install
 #      run: mvn -f /curiositees-backend/curiositees/ clean install
 
