@@ -20,9 +20,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set up JDK 17
-      uses: actions/setup-java@v2
+      uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'temurin'
@@ -30,7 +30,8 @@ jobs:
     - name: Build with Maven
 #      run: mvn clean install
  #     run: mvn -f curiositees-backend/curiositees/ clean install -DskipTests
-      run: mvn -f curiositees-backend/curiositees/CuriositeesWebParent/CuriositeesBackend/pom.xml clean install -DskipTests
+     # run: mvn -f curiositees-backend/curiositees/CuriositeesWebParent/CuriositeesBackend/pom.xml clean install -DskipTests
+      run: mvn -f curiositees-backend/curiositees/pom.xml clean install -DskipTests
  #     run: mvn -f E:\New spring\CDAC\New\curiositees-backend\curiositees\ clean install
 #      run: mvn -f /curiositees-backend/curiositees/ clean install
 
