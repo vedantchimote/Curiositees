@@ -42,8 +42,8 @@ public class ProductRepositoryTests {
 
     @Test
     public void testCreateProduct() {
-        Brand brand = entityManager.find(Brand.class, 37);
-        Category category = entityManager.find(Category.class, 5);
+        Brand brand = entityManager.find(Brand.class, 1);
+        Category category = entityManager.find(Category.class, 1);
 
         Product product = new Product();
         product.setName("Acer Aspire Desktop");

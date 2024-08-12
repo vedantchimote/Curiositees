@@ -34,7 +34,7 @@ public class BrandRepositoryTests {
 
   @Test
   public void testCreateBrand1() {
-    Category laptops = new Category(6);
+    Category laptops = new Category(1);
     Brand acer = new Brand("Acer");
     acer.getCategories().add(laptops);
 
@@ -46,7 +46,7 @@ public class BrandRepositoryTests {
 
   @Test
   public void testCreateBrand2() {
-    Category cellphones = new Category(4);
+    Category cellphones = new Category(2);
     Category tablets = new Category(7);
 
     Brand apple = new Brand("Apple");

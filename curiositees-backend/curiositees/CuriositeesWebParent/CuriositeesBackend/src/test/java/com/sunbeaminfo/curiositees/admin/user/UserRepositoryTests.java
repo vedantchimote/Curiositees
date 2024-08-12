@@ -40,18 +40,18 @@ public class UserRepositoryTests {
   @Autowired
   private TestEntityManager testEntityManager;
 
-  //@Test
+  @Test
   public void testCreateUserWithOneRole() {
 
     Role roleAdmin = testEntityManager.find(Role.class, 1);
-    User vedantUser = new User("vedantchimote@gmail.com", "123456", "Vedant", "Chimote");
+    User vedantUser = new User("vedantchimote3301@gmail.com", "vedant1234", "Vedant", "Chimote");
     vedantUser.addRole(roleAdmin);
 
     User savedUser = userRepository.save(vedantUser);
     assertThat(savedUser.getId()).isGreaterThan(0);
   }
 
-  //@Test
+  @Test
   public void testCreateUserWithTwoRoles() {
 
     User karanUser = new User("karanransing@gmail.com", "123456", "Karan", "Ransing");
@@ -86,7 +86,7 @@ public class UserRepositoryTests {
     userRepository.save(user);
   }
 
-  //@Test
+  @Test
   public void testUpdateUserRoles() {
     User userKaran = userRepository.findById(2).get();
     Role roleEditor = new Role(3);
