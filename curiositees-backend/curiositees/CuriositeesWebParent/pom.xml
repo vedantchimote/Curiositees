@@ -91,6 +91,14 @@
     </dependency>
 
   </dependencies>
+
+<!--  <repositories>-->
+<!--    <repository>-->
+<!--      <id>your-repository-id</id>-->
+<!--      <url>https://your-repository-url</url>-->
+<!--    </repository>-->
+<!--  </repositories>-->
+
   <description>CuriositeesWebParent</description>
   <groupId>com.sunbeaminfo</groupId>
   <modelVersion>4.0.0</modelVersion>
