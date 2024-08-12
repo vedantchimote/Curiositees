@@ -17,7 +17,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * @created : 12-08-2024, Monday
  **/
 
-public interface Repository extends PagingAndSortingRepository<Brand, Integer>,
+public interface BrandRepository extends PagingAndSortingRepository<Brand, Integer>,
     JpaRepository<Brand, Integer> {
 
 }
