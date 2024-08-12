@@ -2,7 +2,7 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments :: page_head('Your Account Details')"/>
+<head th:replace="fragments :: page_head('Your Account Details', 'none')" />
 
 <body>
 
@@ -20,7 +20,6 @@
     <div class="alert alert-success text-center" th:if="${message != null}">
       [[${message}]]
     </div>
-
 
     <div class="border border-secondary rounded p-3">
       <div class="form-group row">
