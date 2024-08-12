@@ -11,6 +11,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import java.util.Date;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -251,5 +252,12 @@ public class Product {
 
     public void addExtraImage(String imageName) {
         this.images.add(new ProductImage(imageName, this));
+    }
+
+    @Transient
+    public String getMainImagePath() {
+        if (id == null || mainImage == null) return "/images/image-thumbnail.png";
+
+        return "/product-images/" + this.id + "/" + this.mainImage;
     }
 }
