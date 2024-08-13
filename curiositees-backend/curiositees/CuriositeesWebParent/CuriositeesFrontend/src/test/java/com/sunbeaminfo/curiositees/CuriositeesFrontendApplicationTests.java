@@ -1,4 +1,4 @@
-package com.sunbeaminfo.curiositees.site;
+package com.sunbeaminfo.curiositees;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package com.sunbeaminfo.curiositees.site;
+package com.sunbeaminfo.curiositees;
 /**
  * @author : Vedant Chimote
  * @mailto : vedantc.code@gmail.com

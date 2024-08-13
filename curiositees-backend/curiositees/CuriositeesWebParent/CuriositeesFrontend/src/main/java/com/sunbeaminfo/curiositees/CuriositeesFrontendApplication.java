@@ -1,4 +1,4 @@
-package com.sunbeaminfo.curiositees.site;
+package com.sunbeaminfo.curiositees;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
