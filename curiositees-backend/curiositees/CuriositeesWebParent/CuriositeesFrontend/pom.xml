@@ -25,7 +25,7 @@
   <parent>
     <artifactId>CuriositeesWebParent</artifactId>
     <groupId>com.sunbeaminfo</groupId>
-    <version>1.6</version>
+    <version>1.7-SNAPSHOT</version>
   </parent>
 
   <properties>
