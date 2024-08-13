@@ -67,7 +67,7 @@ public class WebSecurityConfig {
     http.authorizeHttpRequests(auth -> auth
             .requestMatchers("/users/**").hasAuthority("Admin")
             .requestMatchers("/categories/**").hasAnyAuthority("Admin", "Editor")
-            .requestMatchers("/products/**").hasAnyAuthority("Admin", "Salesperson", "Editor", "Shipper")
+//            .requestMatchers("/products/**").hasAnyAuthority("Admin", "Salesperson", "Editor", "Shipper")
             .requestMatchers("/brands/**").hasAnyAuthority("Admin", "Editor")
             .requestMatchers("/questions/**").hasAnyAuthority("Admin", "Assistant")
             .requestMatchers("/reviews/**").hasAnyAuthority("Admin", "Assistant")
@@ -78,6 +78,17 @@ public class WebSecurityConfig {
             .requestMatchers("/articles/**").hasAnyAuthority("Admin")
             .requestMatchers("/menus/**").hasAnyAuthority("Admin", "Editor")
             .requestMatchers("/settings/**").hasAnyAuthority("Admin", "Editor")
+
+            .requestMatchers("/products/new", "/products/delete/**").hasAnyAuthority("Admin", "Editor")
+
+            .requestMatchers("/products/edit/**", "/products/save", "/products/check_unique")
+            .hasAnyAuthority("Admin", "Editor", "Salesperson")
+
+            .requestMatchers("/products", "/products/", "/products/detail/**", "/products/page/**")
+            .hasAnyAuthority("Admin", "Editor", "Salesperson", "Shipper")
+
+            .requestMatchers("/products/**").hasAnyAuthority("Admin", "Editor")
+
         //To get the json api for all users by admin
             .requestMatchers("/api/users/all").hasAnyAuthority("Admin")
 //            .requestMatchers("/cart/**").hasAnyAuthority("Admin", "Manager", "User")
