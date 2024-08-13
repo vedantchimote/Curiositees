@@ -2,11 +2,19 @@ package com.sunbeaminfo.curiositees.admin.product;
 
 import com.curiositees.common.entity.Brand;
 import com.curiositees.common.entity.Product;
+import com.curiositees.common.entity.ProductImage;
 import com.sunbeaminfo.curiositees.admin.FileUploadUtil;
 import com.sunbeaminfo.curiositees.admin.brand.BrandService;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashSet;
 import java.util.List;
 
+import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,160 +29,224 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class ProductController {
-	@Autowired private ProductService productService;
-	@Autowired private BrandService brandService;
 
-	@GetMapping("/products")
-	public String listAll(Model model) {
-		List<Product> listProducts = productService.listAll();
+  private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
 
-		model.addAttribute("listProducts", listProducts);
+  @Autowired
+  private ProductService productService;
+  @Autowired
+  private BrandService brandService;
 
-		return "products/products";
-	}
+  @GetMapping("/products")
+  public String listAll(Model model) {
+    List<Product> listProducts = productService.listAll();
 
-	@GetMapping("/products/new")
-	public String newProduct(Model model) {
-		List<Brand> listBrands = brandService.listAll();
+    model.addAttribute("listProducts", listProducts);
 
-		Product product = new Product();
-		product.setEnabled(true);
-		product.setInStock(true);
+    return "products/products";
+  }
 
-		model.addAttribute("product", product);
-		model.addAttribute("listBrands", listBrands);
-		model.addAttribute("pageTitle", "Create New Product");
+  @GetMapping("/products/new")
+  public String newProduct(Model model) {
+    List<Brand> listBrands = brandService.listAll();
 
-		return "products/product_form";
-	}
+    Product product = new Product();
+    product.setEnabled(true);
+    product.setInStock(true);
 
-	@PostMapping("/products/save")
-	public String saveProduct(Product product, RedirectAttributes ra,
-			@RequestParam("fileImage") MultipartFile mainImageMultipart,
-			@RequestParam("extraImage") MultipartFile[] extraImageMultiparts,
-			@RequestParam(name = "detailNames", required = false) String[] detailNames,
-			@RequestParam(name = "detailValues", required = false) String[] detailValues
-	)
-			throws IOException {
-		setMainImageName(mainImageMultipart, product);
-		setExtraImageNames(extraImageMultiparts, product);
-		setProductDetails(detailNames, detailValues, product);
+    model.addAttribute("product", product);
+    model.addAttribute("listBrands", listBrands);
+    model.addAttribute("pageTitle", "Create New Product");
 
-		Product savedProduct = productService.save(product);
+    return "products/product_form";
+  }
 
-		saveUploadedImages(mainImageMultipart, extraImageMultiparts, savedProduct);
+  @PostMapping("/products/save")
+  public String saveProduct(Product product, RedirectAttributes ra,
+      @RequestParam("fileImage") MultipartFile mainImageMultipart,
+      @RequestParam("extraImage") MultipartFile[] extraImageMultiparts,
+      @RequestParam(name = "detailIDs", required = false) String[] detailIDs,
+      @RequestParam(name = "detailNames", required = false) String[] detailNames,
+      @RequestParam(name = "detailValues", required = false) String[] detailValues,
+      @RequestParam(name = "imageIDs", required = false) String[] imageIDs,
+      @RequestParam(name = "imageNames", required = false) String[] imageNames
+  )
+      throws IOException {
+    setMainImageName(mainImageMultipart, product);
+    setExistingExtraImageNames(imageIDs, imageNames, product);
+    setNewExtraImageNames(extraImageMultiparts, product);
+    setProductDetails(detailIDs, detailNames, detailValues, product);
 
-		ra.addFlashAttribute("message", "The product has been saved successfully.");
+    Product savedProduct = productService.save(product);
 
-		return "redirect:/products";
-	}
+    saveUploadedImages(mainImageMultipart, extraImageMultiparts, savedProduct);
 
-	private void setProductDetails(String[] detailNames, String[] detailValues, Product product) {
-		if (detailNames == null || detailNames.length == 0) return;
+    deleteExtraImagesWeredRemovedOnForm(product);
 
-		for (int count = 0; count < detailNames.length; count++) {
-			String name = detailNames[count];
-			String value = detailValues[count];
+    ra.addFlashAttribute("message", "The product has been saved successfully.");
 
-			if (!name.isEmpty() && !value.isEmpty()) {
-				product.addDetail(name, value);
-			}
-		}
-	}
+    return "redirect:/products";
+  }
 
-	private void saveUploadedImages(MultipartFile mainImageMultipart,
-			MultipartFile[] extraImageMultiparts, Product savedProduct) throws IOException {
-		if (!mainImageMultipart.isEmpty()) {
-			String fileName = StringUtils.cleanPath(mainImageMultipart.getOriginalFilename());
-			String uploadDir = "../product-images/" + savedProduct.getId();
+  private void deleteExtraImagesWeredRemovedOnForm(Product product) {
+    String extraImageDir = "../product-images/" + product.getId() + "/extras";
+    Path dirPath = Paths.get(extraImageDir);
 
-			FileUploadUtil.cleanDir(uploadDir);
-			FileUploadUtil.saveFile(uploadDir, fileName, mainImageMultipart);
-		}
+    try {
+      Files.list(dirPath).forEach(file -> {
+        String filename = file.toFile().getName();
 
-		if (extraImageMultiparts.length > 0) {
-			String uploadDir = "../product-images/" + savedProduct.getId() + "/extras";
+        if (!product.containsImageName(filename)) {
+          try {
+            Files.delete(file);
+            LOGGER.info("Deleted extra image: " + filename);
 
-			for (MultipartFile multipartFile : extraImageMultiparts) {
-				if (multipartFile.isEmpty()) continue;
+          } catch (IOException e) {
+            LOGGER.error("Could not delete extra image: " + filename);
+          }
+        }
 
-				String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-				FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-			}
-		}
+      });
+    } catch (IOException ex) {
+      LOGGER.error("Could not list directory: " + dirPath);
+    }
+  }
 
-	}
+  private void setExistingExtraImageNames(String[] imageIDs, String[] imageNames,
+      Product product) {
+    if (imageIDs == null || imageIDs.length == 0) {
+      return;
+    }
 
-	private void setExtraImageNames(MultipartFile[] extraImageMultiparts, Product product) {
-		if (extraImageMultiparts.length > 0) {
-			for (MultipartFile multipartFile : extraImageMultiparts) {
-				if (!multipartFile.isEmpty()) {
-					String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-					product.addExtraImage(fileName);
-				}
-			}
-		}
-	}
+    Set<ProductImage> images = new HashSet<>();
 
-	private void setMainImageName(MultipartFile mainImageMultipart, Product product) {
-		if (!mainImageMultipart.isEmpty()) {
-			String fileName = StringUtils.cleanPath(mainImageMultipart.getOriginalFilename());
-			product.setMainImage(fileName);
-		}
-	}
+    for (int count = 0; count < imageIDs.length; count++) {
+      Integer id = Integer.parseInt(imageIDs[count]);
+      String name = imageNames[count];
 
-	@GetMapping("/products/{id}/enabled/{status}")
-	public String updateCategoryEnabledStatus(@PathVariable("id") Integer id,
-			@PathVariable("status") boolean enabled, RedirectAttributes redirectAttributes) {
-		productService.updateProductEnabledStatus(id, enabled);
-		String status = enabled ? "enabled" : "disabled";
-		String message = "The Product ID " + id + " has been " + status;
-		redirectAttributes.addFlashAttribute("message", message);
+      images.add(new ProductImage(id, name, product));
+    }
 
-		return "redirect:/products";
-	}
+    product.setImages(images);
 
-	@GetMapping("/products/delete/{id}")
-	public String deleteProduct(@PathVariable(name = "id") Integer id,
-			Model model,
-			RedirectAttributes redirectAttributes) {
-		try {
-			productService.delete(id);
-			String productExtraImagesDir = "../product-images/" + id + "/extras";
-			String productImagesDir = "../product-images/" + id;
+  }
 
-			FileUploadUtil.removeDir(productExtraImagesDir);
-			FileUploadUtil.removeDir(productImagesDir);
+  private void setProductDetails(String[] detailIDs, String[] detailNames,
+      String[] detailValues, Product product) {
+    if (detailNames == null || detailNames.length == 0) {
+      return;
+    }
 
-			redirectAttributes.addFlashAttribute("message",
-					"The product ID " + id + " has been deleted successfully");
-		} catch (ProductNotFoundException ex) {
-			redirectAttributes.addFlashAttribute("message", ex.getMessage());
-		}
+    for (int count = 0; count < detailNames.length; count++) {
+      String name = detailNames[count];
+      String value = detailValues[count];
+      Integer id = Integer.parseInt(detailIDs[count]);
 
-		return "redirect:/products";
-	}
+      if (id != 0) {
+        product.addDetail(id, name, value);
+      } else if (!name.isEmpty() && !value.isEmpty()) {
+        product.addDetail(name, value);
+      }
+    }
+  }
 
-	@GetMapping("/products/edit/{id}")
-	public String editProduct(@PathVariable("id") Integer id, Model model,
-			RedirectAttributes ra) {
-		try {
-			Product product = productService.get(id);
-			List<Brand> listBrands = brandService.listAll();
-			Integer numberOfExistingExtraImages = product.getImages().size();
+  private void saveUploadedImages(MultipartFile mainImageMultipart,
+      MultipartFile[] extraImageMultiparts, Product savedProduct) throws IOException {
+    if (!mainImageMultipart.isEmpty()) {
+      String fileName = StringUtils.cleanPath(mainImageMultipart.getOriginalFilename());
+      String uploadDir = "../product-images/" + savedProduct.getId();
 
-			model.addAttribute("product", product);
-			model.addAttribute("listBrands", listBrands);
-			model.addAttribute("pageTitle", "Edit Product (ID: " + id + ")");
-			model.addAttribute("numberOfExistingExtraImages", numberOfExistingExtraImages);
+      FileUploadUtil.cleanDir(uploadDir);
+      FileUploadUtil.saveFile(uploadDir, fileName, mainImageMultipart);
+    }
 
+    if (extraImageMultiparts.length > 0) {
+      String uploadDir = "../product-images/" + savedProduct.getId() + "/extras";
 
-			return "products/product_form";
+      for (MultipartFile multipartFile : extraImageMultiparts) {
+        if (multipartFile.isEmpty()) {
+          continue;
+        }
 
-		} catch (ProductNotFoundException e) {
-			ra.addFlashAttribute("message", e.getMessage());
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+      }
+    }
 
-			return "redirect:/products";
-		}
-	}
+  }
+
+  private void setNewExtraImageNames(MultipartFile[] extraImageMultiparts, Product product) {
+    if (extraImageMultiparts.length > 0) {
+      for (MultipartFile multipartFile : extraImageMultiparts) {
+        if (!multipartFile.isEmpty()) {
+          String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+
+          if (!product.containsImageName(fileName)) {
+            product.addExtraImage(fileName);
+          }
+        }
+      }
+    }
+  }
+
+  private void setMainImageName(MultipartFile mainImageMultipart, Product product) {
+    if (!mainImageMultipart.isEmpty()) {
+      String fileName = StringUtils.cleanPath(mainImageMultipart.getOriginalFilename());
+      product.setMainImage(fileName);
+    }
+  }
+
+  @GetMapping("/products/{id}/enabled/{status}")
+  public String updateCategoryEnabledStatus(@PathVariable("id") Integer id,
+      @PathVariable("status") boolean enabled, RedirectAttributes redirectAttributes) {
+    productService.updateProductEnabledStatus(id, enabled);
+    String status = enabled ? "enabled" : "disabled";
+    String message = "The Product ID " + id + " has been " + status;
+    redirectAttributes.addFlashAttribute("message", message);
+
+    return "redirect:/products";
+  }
+
+  @GetMapping("/products/delete/{id}")
+  public String deleteProduct(@PathVariable(name = "id") Integer id,
+      Model model,
+      RedirectAttributes redirectAttributes) {
+    try {
+      productService.delete(id);
+      String productExtraImagesDir = "../product-images/" + id + "/extras";
+      String productImagesDir = "../product-images/" + id;
+
+      FileUploadUtil.removeDir(productExtraImagesDir);
+      FileUploadUtil.removeDir(productImagesDir);
+
+      redirectAttributes.addFlashAttribute("message",
+          "The product ID " + id + " has been deleted successfully");
+    } catch (ProductNotFoundException ex) {
+      redirectAttributes.addFlashAttribute("message", ex.getMessage());
+    }
+
+    return "redirect:/products";
+  }
+
+  @GetMapping("/products/edit/{id}")
+  public String editProduct(@PathVariable("id") Integer id, Model model,
+      RedirectAttributes ra) {
+    try {
+      Product product = productService.get(id);
+      List<Brand> listBrands = brandService.listAll();
+      Integer numberOfExistingExtraImages = product.getImages().size();
+
+      model.addAttribute("product", product);
+      model.addAttribute("listBrands", listBrands);
+      model.addAttribute("pageTitle", "Edit Product (ID: " + id + ")");
+      model.addAttribute("numberOfExistingExtraImages", numberOfExistingExtraImages);
+
+      return "products/product_form";
+
+    } catch (ProductNotFoundException e) {
+      ra.addFlashAttribute("message", e.getMessage());
+
+      return "redirect:/products";
+    }
+  }
 }
