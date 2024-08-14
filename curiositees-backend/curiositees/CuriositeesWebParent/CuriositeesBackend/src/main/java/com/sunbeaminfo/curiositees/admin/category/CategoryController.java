@@ -8,6 +8,7 @@
 package com.sunbeaminfo.curiositees.admin.category;
 
 import com.curiositees.common.entity.Category;
+import com.curiositees.common.exception.CategoryNotFoundException;
 import com.sunbeaminfo.curiositees.admin.FileUploadUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;

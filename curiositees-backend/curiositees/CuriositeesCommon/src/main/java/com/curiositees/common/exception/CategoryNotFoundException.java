@@ -5,7 +5,7 @@
  * @Time : 12:43 pm
  **/
 
-package com.sunbeaminfo.curiositees.admin.category;
+package com.curiositees.common.exception;
 
 /**
  * @author : Vedant Chimote

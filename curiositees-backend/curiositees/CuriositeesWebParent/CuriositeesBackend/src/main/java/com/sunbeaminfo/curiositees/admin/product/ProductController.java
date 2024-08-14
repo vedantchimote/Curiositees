@@ -3,6 +3,7 @@ package com.sunbeaminfo.curiositees.admin.product;
 import com.curiositees.common.entity.Brand;
 import com.curiositees.common.entity.Category;
 import com.curiositees.common.entity.Product;
+import com.curiositees.common.exception.ProductNotFoundException;
 import com.sunbeaminfo.curiositees.admin.FileUploadUtil;
 import com.sunbeaminfo.curiositees.admin.brand.BrandService;
 import com.sunbeaminfo.curiositees.admin.category.CategoryService;

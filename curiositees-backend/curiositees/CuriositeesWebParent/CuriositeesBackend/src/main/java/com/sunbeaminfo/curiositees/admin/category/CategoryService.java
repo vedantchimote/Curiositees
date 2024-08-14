@@ -8,6 +8,7 @@
 package com.sunbeaminfo.curiositees.admin.category;
 
 import com.curiositees.common.entity.Category;
+import com.curiositees.common.exception.CategoryNotFoundException;
 import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Comparator;

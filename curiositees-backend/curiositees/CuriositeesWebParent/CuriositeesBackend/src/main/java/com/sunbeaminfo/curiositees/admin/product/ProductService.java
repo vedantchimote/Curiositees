@@ -8,6 +8,7 @@
 package com.sunbeaminfo.curiositees.admin.product;
 
 import com.curiositees.common.entity.Product;
+import com.curiositees.common.exception.ProductNotFoundException;
 import jakarta.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
