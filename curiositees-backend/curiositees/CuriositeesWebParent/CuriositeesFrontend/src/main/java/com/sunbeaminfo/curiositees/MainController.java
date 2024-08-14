@@ -19,8 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @ComponentScan(basePackages = "com.sunbeaminfo.curiositees.category")
 public class MainController {
 
-  @Autowired
-  private CategoryService categoryService;
+  @Autowired private CategoryService categoryService;
 
   @GetMapping("")
   public String viewHomePage(Model model) {
@@ -28,5 +27,4 @@ public class MainController {
     model.addAttribute("listCategories", listCategories);
     return "index";
   }
-
 }
