@@ -10,6 +10,7 @@ package com.sunbeaminfo.curiositees.customer;
 import com.curiositees.common.entity.Country;
 import com.curiositees.common.entity.Customer;
 import com.sunbeaminfo.curiositees.setting.CountryRepository;
+import jakarta.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import net.bytebuddy.utility.RandomString;
  **/
 
 @Service
+@Transactional
 public class CustomerService {
 
   @Autowired
@@ -58,5 +60,16 @@ public class CustomerService {
   private void encodePassword(Customer customer) {
     String encodedPassword = passwordEncoder.encode(customer.getPassword());
     customer.setPassword(encodedPassword);
+  }
+
+  public boolean verify(String verificationCode) {
+    Customer customer = customerRepo.findByVerificationCode(verificationCode);
+
+    if (customer == null || customer.isEnabled()) {
+      return false;
+    } else {
+      customerRepo.enable(customer.getId());
+      return true;
+    }
   }
 }
