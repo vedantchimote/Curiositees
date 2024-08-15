@@ -24,7 +24,6 @@ public class SettingService {
   @Autowired
   private SettingRepository repo;
 
-
   public List<Setting> getGeneralSettings() {
     return repo.findByTwoCategories(SettingCategory.GENERAL, SettingCategory.CURRENCY);
   }
