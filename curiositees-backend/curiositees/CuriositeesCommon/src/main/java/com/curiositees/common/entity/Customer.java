@@ -202,5 +202,8 @@ public class Customer {
         + lastName + "]";
   }
 
+  public String getFullName() {
+    return firstName + " " + lastName;
+  }
 
 }
