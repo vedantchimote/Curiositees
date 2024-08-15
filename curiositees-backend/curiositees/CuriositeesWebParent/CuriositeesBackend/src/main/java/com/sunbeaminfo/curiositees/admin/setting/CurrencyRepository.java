@@ -8,6 +8,7 @@
 package com.sunbeaminfo.curiositees.admin.setting;
 
 import com.curiositees.common.entity.Currency;
+import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -17,5 +18,7 @@ import org.springframework.data.repository.CrudRepository;
  **/
 
 public interface CurrencyRepository extends CrudRepository<Currency, Integer> {
+
+  public List<Currency> findAllByOrderByNameAsc();
 
 }
