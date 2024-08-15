@@ -33,7 +33,7 @@ public class CountryRepositoryTests {
 
   @Test
   public void testCreateCountry() {
-    Country country = repo.save(new Country("China", "CN"));
+    Country country = repo.save(new Country("United State of America", "USA"));
     assertThat(country).isNotNull();
     assertThat(country.getId()).isGreaterThan(0);
   }
@@ -49,7 +49,7 @@ public class CountryRepositoryTests {
   @Test
   public void testUpdateCountry() {
     Integer id = 1;
-    String name = "Republic of India";
+    String name = "India";
 
     Country country = repo.findById(id).get();
     country.setName(name);
