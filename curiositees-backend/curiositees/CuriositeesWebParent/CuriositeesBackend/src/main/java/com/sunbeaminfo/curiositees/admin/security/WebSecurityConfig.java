@@ -65,7 +65,7 @@ public class WebSecurityConfig {
     http.authenticationProvider(authenticationProvider());
 
     http.authorizeHttpRequests(auth -> auth
-            .requestMatchers("/users/**").hasAuthority("Admin")
+                .requestMatchers("/users/**", "/settings/**", "/countries/**", "/states/**").hasAuthority("Admin")
             .requestMatchers("/categories/**").hasAnyAuthority("Admin", "Editor")
 //            .requestMatchers("/products/**").hasAnyAuthority("Admin", "Salesperson", "Editor", "Shipper")
             .requestMatchers("/brands/**").hasAnyAuthority("Admin", "Editor")
@@ -75,7 +75,7 @@ public class WebSecurityConfig {
             .requestMatchers("/shipping/**").hasAnyAuthority("Admin", "Salesperson")
             .requestMatchers("/orders/**").hasAnyAuthority("Admin", "Salesperson", "Shipper")
             .requestMatchers("/reports/**").hasAnyAuthority("Admin", "Salesperson")
-            .requestMatchers("/articles/**").hasAnyAuthority("Admin")
+            .requestMatchers("/articles/**").hasAnyAuthority("Admin", "Editor")
             .requestMatchers("/menus/**").hasAnyAuthority("Admin", "Editor")
             .requestMatchers("/settings/**").hasAnyAuthority("Admin", "Editor")
 
