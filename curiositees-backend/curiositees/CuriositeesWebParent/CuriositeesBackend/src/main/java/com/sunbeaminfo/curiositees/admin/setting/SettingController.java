@@ -97,7 +97,6 @@ public class SettingController {
         setting.setValue(value);
       }
     }
-
     service.saveAll(listSettings);
   }
 }

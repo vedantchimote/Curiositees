@@ -46,13 +46,21 @@
       <groupId>org.springframework.boot</groupId>
     </dependency>
 
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/mysql/mysql-connector-java &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <artifactId>mysql-connector-java</artifactId>-->
+<!--      <groupId>mysql</groupId>-->
+<!--      <scope>runtime</scope>-->
+<!--      <version>8.0.22</version>-->
+<!--    </dependency>-->
+
     <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
     <dependency>
-      <artifactId>mysql-connector-java</artifactId>
-      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-j</artifactId>
+      <groupId>com.mysql</groupId>
       <scope>runtime</scope>
-      <version>8.0.22</version>
     </dependency>
+
 
     <!--Bootstrap and JQuery Dependencies-->
     <dependency>
