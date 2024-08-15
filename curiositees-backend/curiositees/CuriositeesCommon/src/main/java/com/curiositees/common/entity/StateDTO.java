@@ -5,7 +5,7 @@
  * @Time : 06:13 pm
  **/
 
-package com.sunbeaminfo.curiositees.admin.setting.state;
+package com.curiositees.common.entity;
 
 /**
  * @author : Vedant Chimote
