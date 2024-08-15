@@ -29,10 +29,10 @@ public class ProductDetail {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @Column(nullable = false, length = 255)
+  @Column(nullable = false, length = 10000)
   private String name;
 
-  @Column(nullable = false, length = 255)
+  @Column(nullable = false, length = 10000)
   private String value;
 
   @ManyToOne
